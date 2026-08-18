@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zonvakantie met kinderen onder de vier · TripPick.eu</title>
+<meta name="description" content="Bij kinderen onder de vier is vliegtijd de beslissende variabele. Wat betekent twee versus vier uur vliegen in de praktijk, en wat zijn de alternatieven?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nacht:#0D1B2A; --teal:#17BEBB; --blauw:#7FD3F7; --geel:#FFC857; --grijs:#F2F4F7;
+  --kaart:#FFFFFF; --tekst:#0D1B2A; --sub:#5C6B7A; --rand:#E4E9EE;
+  --r1:10px; --r2:16px; --r3:26px;
+  --sh1:0 1px 2px rgba(13,27,42,.04), 0 6px 18px -8px rgba(13,27,42,.10);
+  --sh2:0 2px 6px rgba(13,27,42,.05), 0 26px 60px -18px rgba(13,27,42,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--grijs);color:var(--tekst);font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+@media(max-width:560px){.wrap{padding:0 16px}}
+.mono{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+h1,h2,h3{font-weight:700;line-height:1.14;letter-spacing:-.01em}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+.eyebrow{color:var(--teal);display:block;margin-bottom:14px;font-weight:700}
+.btn{background:var(--teal);color:#fff;padding:13px 24px;border-radius:99px;font-weight:600;font-size:15px;
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:.18s;
+  box-shadow:0 8px 20px -8px rgba(23,190,187,.55)}
+.btn:hover{transform:translateY(-2px)}
+
+/* nav */
+.navwrap{position:sticky;top:14px;z-index:70;padding:0 26px;margin-top:14px}
+.nav{max-width:1180px;margin:0 auto;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);
+  border:1px solid var(--rand);border-radius:99px;box-shadow:var(--sh1);
+  display:flex;align-items:center;justify-content:space-between;padding:8px 9px 8px 20px}
+.logo img{height:26px;display:block}
+nav{display:flex;gap:20px;align-items:center}
+nav a{text-decoration:none;color:var(--sub);font-size:14.5px;font-weight:500;transition:.18s}
+nav a:hover{color:var(--nacht)}
+nav a.active{color:var(--nacht);font-weight:700}
+.biz-link{display:flex;align-items:center;gap:6px;color:var(--nacht)!important;font-weight:600!important;
+  padding:7px 13px;border-radius:99px;background:var(--grijs);border:1px solid var(--rand)}
+.biz-link:hover{background:var(--rand)}
+@media(max-width:960px){nav a:not(.btn):not(.biz-link){display:none}.navwrap{padding:0 16px}}
+@media(max-width:640px){.biz-link span{display:none}}
+
+/* page hero */
+.phero{padding:56px 0 60px;position:relative;overflow:hidden}
+.phero::before{content:"";position:absolute;inset:-10% -20% auto -20%;height:520px;pointer-events:none;
+  background:radial-gradient(600px 380px at 80% 20%,rgba(23,190,187,.10),transparent 66%),
+             radial-gradient(600px 400px at 10% 90%,rgba(127,211,247,.14),transparent 68%)}
+.phero .wrap{position:relative;max-width:820px}
+.phero h1{font-size:clamp(2rem,4vw,3rem);margin-bottom:16px}
+.phero h1 span{color:var(--teal)}
+.phero p{font-size:17.5px;color:var(--sub);max-width:56ch;font-weight:400}
+
+/* artikel body */
+.art{padding:0 0 84px}
+.art-inner{max-width:740px;margin:0 auto;background:var(--kaart);border:1px solid var(--rand);
+  border-radius:var(--r3);padding:52px 60px;box-shadow:var(--sh1)}
+@media(max-width:760px){.art-inner{padding:32px 24px;border-radius:var(--r2)}}
+.art-inner h2{font-size:1.5rem;margin:40px 0 14px;color:var(--nacht)}
+.art-inner h3{font-size:1.1rem;margin:22px 0 8px;color:var(--nacht)}
+.art-inner p{color:#2D3E4E;font-size:16px;line-height:1.72;margin-bottom:18px;font-weight:400}
+.art-inner p:last-child{margin-bottom:0}
+.art-inner strong{font-weight:600;color:var(--nacht)}
+.art-inner a{color:var(--teal);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,190,187,.3)}
+.art-inner a:hover{border-color:var(--teal)}
+.reistijd-tbl{width:100%;border-collapse:collapse;margin:24px 0;border-radius:var(--r2);overflow:hidden;
+  border:1px solid var(--rand);font-size:14.5px}
+.reistijd-tbl thead th{background:var(--nacht);color:#EEF2F6;padding:12px 16px;text-align:left;font-weight:600;font-size:12.5px}
+.reistijd-tbl tbody td{padding:13px 16px;border-bottom:1px solid var(--rand);vertical-align:top;line-height:1.5}
+.reistijd-tbl tbody td:first-child{font-weight:600;color:var(--nacht);white-space:nowrap}
+.reistijd-tbl tbody tr:last-child td{border-bottom:none}
+.reistijd-tbl tbody tr:nth-child(even) td{background:var(--grijs)}
+.infoblock{background:rgba(23,190,187,.07);border:1px solid rgba(23,190,187,.25);border-radius:var(--r2);
+  padding:20px 22px;margin:28px 0}
+.infoblock p{margin:0;font-size:15px}
+.infoblock strong{display:block;color:var(--teal);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+
+/* gerelateerd */
+.related{padding:0 0 84px}
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:740px;margin:0 auto}
+@media(max-width:640px){.rel-grid{grid-template-columns:1fr}}
+.rel-card{background:var(--kaart);border:1px solid var(--rand);border-radius:var(--r2);padding:22px;
+  text-decoration:none;display:flex;flex-direction:column;gap:8px;box-shadow:var(--sh1);transition:.18s}
+.rel-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
+.rel-tag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.rel-card h3{font-size:15.5px;color:var(--nacht)}
+.rel-card span{color:var(--teal);font-size:13px;font-weight:600;margin-top:auto}
+
+/* cta */
+.dark{background:var(--nacht);color:#EEF2F6;border-radius:var(--r3);padding:52px 44px;position:relative;overflow:hidden;box-shadow:var(--sh2)}
+.dark::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(560px 360px at 88% 6%,rgba(23,190,187,.16),transparent 62%),
+             radial-gradient(520px 400px at 2% 98%,rgba(127,211,247,.14),transparent 66%)}
+.dark>*{position:relative}
+@media(max-width:640px){.dark{padding:32px 22px;border-radius:var(--r2)}}
+.dark h2 span{color:var(--teal)}
+.cta{padding:0 0 84px}
+.cta-in{display:flex;justify-content:space-between;align-items:center;gap:36px;flex-wrap:wrap}
+.cta h2{font-size:clamp(1.7rem,2.7vw,2.2rem)}
+.cta h2 span{color:var(--teal)}
+.cta p{opacity:.62;font-size:15px;margin-top:8px;font-weight:400}
+
+/* footer */
+footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:30px;border-bottom:1px solid rgba(238,242,246,.13)}
+@media(max-width:820px){.fgrid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+.flogo{display:inline-flex;background:#fff;border-radius:10px;padding:8px 12px}
+.flogo img{height:22px;display:block}
+.fgrid>div:first-child p{opacity:.55;font-size:13.5px;max-width:36ch;margin-top:14px;font-weight:400}
+.fcol .mono{opacity:.45;margin-bottom:12px;display:block}
+.fcol a{display:block;text-decoration:none;opacity:.7;font-size:14px;padding:3px 0;font-weight:500}
+.fcol a:hover{opacity:1;color:var(--teal)}
+.fbot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:18px;opacity:.42;font-size:12px}
+.techtag{display:inline-flex;align-items:center;gap:6px;opacity:.55!important;font-size:12.5px!important}
+.techtag i{width:5px;height:5px;border-radius:50%;background:var(--teal);display:inline-block}
+</style>
+</head>
+<body>
+
+<div class="navwrap">
+  <div class="nav">
+    <a href="../index.html" class="logo"><img src="../TripPick_logo.svg" alt="TripPick.eu"></a>
+    <nav>
+      <a href="../hoe-het-werkt.html">Hoe het werkt</a>
+      <a href="../bestemmingen.html">Bestemmingen</a>
+      <a href="index.html" class="active">Artikelen</a>
+      <a href="../zakelijk.html" class="biz-link"><svg viewBox="0 0 20 20" fill="none" style="width:14px;height:14px"><path d="M4 17V8l6-4 6 4v9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 17v-5h4v5" stroke="currentColor" stroke-width="1.5"/></svg><span>Voor reisorganisaties</span></a>
+      <a href="../index.html#tool" class="btn">Start jouw match</a>
+    </nav>
+  </div>
+</div>
+
+<section class="phero">
+  <div class="wrap">
+    <span class="mono eyebrow">Gezin · jonge kinderen</span>
+    <h1>Zonvakantie met kinderen onder de vier: waar de <span>reistijd</span> het probleem is</h1>
+    <p>Bestemming en prijs zijn secundair. De variabele die het meest bepaalt hoe een vakantie met een peuter verloopt, is de totale tijd van voordeur tot hotelbed.</p>
+  </div>
+</section>
+
+<section class="art">
+  <div class="wrap">
+    <div class="art-inner">
+
+      <p>Ouders die voor het eerst met een kind onder de vier op vakantie gaan, maken een inschatting die achteraf voor velen niet klopt: ze rekenen met de vliegtijd, niet met de totale reistijd. Een vlucht van drie uur voelt beheersbaar. Drie uur vliegen plus twee uur luchthaven plus een uur transfer is een andere situatie.</p>
+
+      <p>Bij volwassenen is vijf tot zes uur reizen moe en ongemakkelijk. Bij een kind van anderhalf jaar is het een fundamenteel andere ervaring: het kind begrijpt niet waarom het stil moet zitten, weet niet wanneer het voorbij is en kan zijn onvrede op maar één manier communiceren. De omgeving — vol vreemden op een meter afstand — helpt daar niet bij.</p>
+
+      <p>Dat is geen reden om nooit te vliegen met een peuter. Het is wel een reden om reistijd als de eerste variabele te behandelen bij het kiezen van een bestemming, niet als een bijzaak.</p>
+
+      <h2>Wat twee tot drie uur vliegen in de praktijk betekent</h2>
+
+      <p>Vluchten van twee tot drie uur — Canarische Eilanden, Zuid-Spanje, Zuid-Portugal, Mallorca — zijn bij kinderen onder de vier goed te doen als ze planbaar zijn. De meeste kinderen van anderhalf tot drie jaar kunnen een vlucht van twee uur redelijk doorstaan als het tijdstip gunstig is: een ochtenddvlucht rond half tien of elf uur, niet een vlucht van vijf uur 's ochtends waarbij het kind gewekt wordt voor vertrek.</p>
+
+      <p>De totale reistijd bij een vlucht van 2,5 uur ziet er in de praktijk als volgt uit:</p>
+
+      <table class="reistijd-tbl">
+        <thead>
+          <tr><th>Onderdeel</th><th>Typische duur</th><th>Met peuter</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Naar luchthaven</td><td>60–90 min</td><td>Vroeg vertrek, kind nog moe</td></tr>
+          <tr><td>Inchecken + security</td><td>45–75 min</td><td>Buggy apart inklappen bij gate</td></tr>
+          <tr><td>Wachten bij gate</td><td>30–60 min</td><td>Moeilijk stil te houden</td></tr>
+          <tr><td>Vlucht</td><td>2,5 uur</td><td>Start-landing zijn zwaarst</td></tr>
+          <tr><td>Uitstappen + bagage</td><td>30–45 min</td><td>Moe kind, drukke hal</td></tr>
+          <tr><td>Transfer naar hotel</td><td>30–90 min</td><td>Afhankelijk van bestemming</td></tr>
+        </tbody>
+      </table>
+
+      <p>Totale reistijd: zes tot zeven uur bij een gunstige vlucht. Dat is lang, maar het is één keer per vakantie. Met een peuter van twee jaar is dat te doen als de vlucht overdag is, het kind gewend is aan wachten en de transfer kort is.</p>
+
+      <h2>Wat vier uur vliegen of langer toevoegt</h2>
+
+      <p>Bij vluchten van vier uur of meer — Turkije, Egypte, delen van Griekenland zoals Kos en Rhodos bij late vluchten — wordt de berekening een andere. Vier uur vliegen betekent een totale reistijd van acht tot tien uur. Dat is een grens die voor kinderen onder de drie fors is, en waarbij de kans op een terugvlucht die ook bij de ouders aankomt als loodzwaar, aanzienlijk stijgt.</p>
+
+      <p>Daar komt bij dat langere vluchten vaker vroege of late vertrektijden hebben: ochtendvluchten van zes uur of avondvluchten waarbij de terugkomst pas na middernacht is. Met een moe kind dat overdag zijn slaapritme al kwijt is, is dat een recept voor een dag die niemand prettig vindt.</p>
+
+      <div class="infoblock">
+        <strong>Vuistregel</strong>
+        <p>Vluchten tot drie uur zijn met een gezond kind onder de vier in principe haalbaar. Vier uur of meer vereist een bewuste afweging: is de bestemming de extra reistijd waard, en is het vluchtschema zo dat het kind niet om vier uur 's ochtends gewekt hoeft te worden?</p>
+      </div>
+
+      <h2>Het alternatief: met de auto</h2>
+
+      <p>Wie liever niet vliegt met een peuter — en dat is een legitieme keuze — heeft meer opties dan de Vlaamse kust of een Nederlandse bungalowpark. Binnen zes tot acht uur rijden vanuit de Randstad zijn ook:</p>
+
+      <h3>Normandië en Bretagne (5–7 uur)</h3>
+      <p>Brede stranden, geen massa's toeristen in het voor- en najaar, fatsoenlijk eten. De kust bij Deauville, Cabourg of Saint-Malo is herkenbaar voor wie als kind zelf ook in Noord-Frankrijk zat, maar er is ook voor wie dat niet kent genoeg om te zien. Rijden via de ferry Hoek van Holland–Harwich is een alternatief dat het rijstuk korter maakt en de kinderen een extra belevenis geeft.</p>
+
+      <h3>Elzas en Vogezen (5–6 uur)</h3>
+      <p>Geen strand, maar vakwerkdorpen, wijnkelders die ook zonder te proeven de moeite waard zijn voor de omgeving, en routes die gemakkelijk rijdend zijn zonder files. Colmar is met kleine kinderen goed te doen en heeft genoeg te zien voor een middag.</p>
+
+      <h3>Denemarken, Jutland (6–7 uur)</h3>
+      <p>Brede, rustige stranden aan de Noordzee en de Oostzee, goede infrastructuur voor gezinnen, en een campingcultuur die ook zonder tent goed georganiseerd is via zomerhuisjes. Minder geschikt voor wie de voorkeur geeft aan warmte, maar uitstekend voor wie zoekt naar rust, ruimte en een strand dat niet overbelast is.</p>
+
+      <p>Bij alle drie geldt: een kind van twee jaar vindt de auto na twee uur ook lang. Het voordeel ten opzichte van vliegen is dat je kunt stoppen. Dat is niet onbelangrijk.</p>
+
+      <h2>De vraag die TripPick stelt</h2>
+
+      <p>De keuzehulp vraagt bij het gezelschap expliciet naar kinderen, en bij het vervoer of je liever vliegt, rijdt of met de trein gaat. Op basis van die combinatie worden bestemmingen berekend die realistisch zijn voor de situatie — inclusief bestemmingen die met de auto te bereiken zijn als dat beter past.</p>
+
+      <p>De keuzehulp is geen garantie voor een perfecte vakantie. Maar hij stelt in ieder geval de vraag die bij het boeken zelf vaak niet gesteld wordt: hoe kom je er, hoe lang duurt dat, en past dat bij de leeftijd van je kind?</p>
+
+      <p style="margin-top:28px"><a href="../index.html#tool">Probeer de keuzehulp →</a></p>
+
+      <p>Zie ook: <a href="waarom-mensen-spijt-krijgen.html">waarom mensen spijt krijgen van hun bestemming</a>, voor meer situaties waarbij één vraag het verschil maakt.</p>
+
+    </div>
+  </div>
+</section>
+
+<section class="related">
+  <div class="wrap">
+    <div style="max-width:740px;margin:0 auto 22px">
+      <span class="mono eyebrow">Meer lezen</span>
+    </div>
+    <div class="rel-grid">
+      <a href="waarom-mensen-spijt-krijgen.html" class="rel-card">
+        <span class="rel-tag">Keuze maken</span>
+        <h3>Waarom mensen spijt krijgen van hun bestemming</h3>
+        <span>Lees artikel →</span>
+      </a>
+      <a href="waar-naartoe-in-mei.html" class="rel-card">
+        <span class="rel-tag">Bestemmingen · mei</span>
+        <h3>Waar naartoe in mei zonder massatoerisme</h3>
+        <span>Lees artikel →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="dark cta-in">
+      <div>
+        <h2>Klaar om het te <span>proberen</span>?</h2>
+        <p>Een paar vragen, ruim een minuut, drie echte opties.</p>
+      </div>
+      <div>
+        <a href="../index.html#tool" class="btn">Start jouw match →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a href="../index.html" class="flogo"><img src="../TripPick_logo.svg" alt="TripPick.eu"></a>
+        <p>Onafhankelijk platform voor het kiezen van een reisbestemming. Niet verbonden aan één reisorganisatie.</p>
+        <div style="margin-top:14px"><span class="techtag"><i></i>Aangedreven door Navago</span></div>
+      </div>
+      <div class="fcol"><span class="mono">Platform</span><a href="../index.html#tool">Keuzehulp</a><a href="../hoe-het-werkt.html">Hoe het werkt</a><a href="../bestemmingen.html">Bestemmingen</a></div>
+      <div class="fcol"><span class="mono">Zakelijk</span><a href="../zakelijk.html">Voor reisorganisaties</a><a href="../zakelijk.html#contact">Demo aanvragen</a><a href="../index.html#technologie">Over Navago</a></div>
+      <div class="fcol"><span class="mono">Informatie</span><a href="index.html">Artikelen</a><a href="../contact.html#over">Over ons</a><a href="../privacy.html">Privacy en cookies</a><a href="../contact.html">Contact</a></div>
+    </div>
+    <div class="fbot mono"><span>TripPick · onderdeel van OnlineKoers · KvK 75082888</span><span>trippick.eu</span></div>
+  </div>
+</footer>
+
+</body>
+</html>
