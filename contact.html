@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · TripPick.eu</title>
+<meta name="description" content="Neem contact op met TripPick, of lees wie er achter dit onafhankelijke keuzeplatform zit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nacht:#0D1B2A; --teal:#17BEBB; --blauw:#7FD3F7; --grijs:#F2F4F7;
+  --kaart:#FFFFFF; --tekst:#0D1B2A; --sub:#5C6B7A; --rand:#E4E9EE;
+  --r1:10px; --r2:16px; --r3:26px;
+  --sh1:0 1px 2px rgba(13,27,42,.04), 0 6px 18px -8px rgba(13,27,42,.10);
+  --sh2:0 2px 6px rgba(13,27,42,.05), 0 26px 60px -18px rgba(13,27,42,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--grijs);color:var(--tekst);font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 26px}
+@media(max-width:560px){.wrap{padding:0 16px}}
+.mono{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+h1,h2,h3{font-weight:700;line-height:1.14;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+.eyebrow{color:var(--teal);display:block;margin-bottom:14px;font-weight:700}
+
+.navwrap{position:sticky;top:14px;z-index:70;padding:0 26px;margin-top:14px}
+.nav{max-width:1180px;margin:0 auto;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);
+  border:1px solid var(--rand);border-radius:99px;box-shadow:var(--sh1);
+  display:flex;align-items:center;justify-content:space-between;padding:8px 9px 8px 20px}
+.logo img{height:26px;display:block}
+nav{display:flex;gap:20px;align-items:center}
+nav a{text-decoration:none;color:var(--sub);font-size:14.5px;font-weight:500;transition:.18s}
+nav a:hover{color:var(--nacht)}
+.biz-link{display:flex;align-items:center;gap:6px;color:var(--nacht)!important;font-weight:600!important;
+  padding:7px 13px;border-radius:99px;background:var(--grijs);border:1px solid var(--rand)}
+.biz-link:hover{background:var(--rand)}
+@media(max-width:960px){nav a:not(.biz-link){display:none}.navwrap{padding:0 16px}}
+@media(max-width:640px){.biz-link span{display:none}}
+
+.phero{padding:56px 0 44px}
+.phero h1{font-size:clamp(2.1rem,3.8vw,3rem);margin-bottom:14px}
+.phero h1 span{color:var(--teal)}
+.phero p{font-size:16.5px;color:var(--sub);max-width:60ch;font-weight:400}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-bottom:60px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:var(--kaart);border:1px solid var(--rand);border-radius:var(--r2);padding:26px;box-shadow:var(--sh1)}
+.card h3{font-size:17px;margin-bottom:10px}
+.card p{color:var(--sub);font-size:14.5px;line-height:1.6;margin-bottom:14px}
+.mail{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#07211F;padding:11px 18px;
+  border-radius:99px;font-weight:600;font-size:14.5px;text-decoration:none}
+.mail:hover{background:#3DD3D0}
+.kv{display:grid;gap:8px;font-size:14px}
+.kv div{display:flex;justify-content:space-between;gap:14px;padding-bottom:8px;border-bottom:1px solid var(--rand)}
+.kv div:last-child{border-bottom:none;padding-bottom:0}
+.kv span:first-child{color:var(--sub)}
+.kv span:last-child{font-weight:600}
+
+.about{padding:0 0 70px}
+.about .card{padding:32px}
+.about p{color:var(--sub);font-size:15px;line-height:1.65;margin-bottom:12px}
+.about p:last-child{margin-bottom:0}
+
+footer{background:var(--nacht);color:#EEF2F6;padding:42px 0 26px;margin-top:20px}
+.fwrap{max-width:1180px;margin:0 auto;padding:0 26px}
+.flogo{display:inline-flex;background:#fff;border-radius:9px;padding:7px 11px}
+.flogo img{height:20px;display:block}
+.fmeta{opacity:.55;font-size:13px;margin-top:14px;max-width:44ch}
+.fbot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:20px;margin-top:20px;
+  border-top:1px solid rgba(238,242,246,.13);opacity:.42;font-size:11.5px}
+</style>
+</head>
+<body>
+
+<div class="navwrap">
+  <div class="nav">
+    <a href="index.html" class="logo"><img src="TripPick_logo.svg" alt="TripPick.eu"></a>
+    <nav>
+      <a href="hoe-het-werkt.html">Hoe het werkt</a>
+      <a href="bestemmingen.html">Bestemmingen</a>
+      <a href="zakelijk.html" class="biz-link">
+        <svg viewBox="0 0 20 20" fill="none" style="width:14px;height:14px"><path d="M4 17V8l6-4 6 4v9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 17v-5h4v5" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span>Voor reisorganisaties</span>
+      </a>
+    </nav>
+  </div>
+</div>
+
+<section class="phero">
+  <div class="wrap">
+    <span class="mono" style="color:var(--teal);display:block;margin-bottom:12px;font-weight:700">Contact</span>
+    <h1>Vragen, tips of iets <span>rechtzetten</span>?</h1>
+    <p>We zijn een klein team en lezen elk bericht zelf. Reken op een reactie binnen twee werkdagen.</p>
+  </div>
+</section>
+
+<section class="grid wrap">
+  <div class="card">
+    <h3>Stuur ons een bericht</h3>
+    <p>Voor vragen over een match, een correctie op een bestemming, of gewoon een opmerking: mail rechtstreeks, dat is sneller dan een formulier.</p>
+    <a class="mail" href="mailto:hallo@trippick.eu">hallo@trippick.eu →</a>
+  </div>
+  <div class="card">
+    <h3>Bedrijfsgegevens</h3>
+    <div class="kv">
+      <div><span>Handelsnaam</span><span>TripPick</span></div>
+      <div><span>Onderdeel van</span><span>OnlineKoers</span></div>
+      <div><span>KvK-nummer</span><span>75082888</span></div>
+      <div><span>Website</span><span>trippick.eu</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="about wrap" id="over">
+  <div class="card">
+    <span class="eyebrow mono">Over TripPick</span>
+    <p>TripPick is een onafhankelijk platform dat mensen helpt kiezen waar ze op vakantie gaan. In een paar vragen ga je van "geen idee" naar drie concrete, bestaande reizen die bij je situatie passen, met de reden erbij.</p>
+    <p>We zijn niet verbonden aan één reisorganisatie. We zoeken bij alle aangesloten aanbieders tegelijk, en we zeggen er ook bij wanneer iets níet past. Achter de matching zit Navago, onze eigen technologie die situaties vertaalt naar geverifieerde reizen zonder ooit een bestemming te verzinnen.</p>
+    <p>TripPick is onderdeel van OnlineKoers, gevestigd in Nederland.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fwrap">
+    <a href="index.html" class="flogo"><img src="TripPick_logo.svg" alt="TripPick.eu"></a>
+    <p class="fmeta">Onafhankelijk platform voor het kiezen van een reisbestemming. Niet verbonden aan één reisorganisatie.</p>
+    <div class="fbot mono"><span>TripPick · onderdeel van OnlineKoers · KvK 75082888</span><span>trippick.eu</span></div>
+  </div>
+</footer>
+
+</body>
+</html>

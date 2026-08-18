@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bestemmingen · TripPick.eu</title>
+<meta name="description" content="Blader door de bestemmingen in de TripPick-index, of beantwoord vijf vragen voor een match op maat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nacht:#0D1B2A; --teal:#17BEBB; --blauw:#7FD3F7; --geel:#FFC857; --grijs:#F2F4F7;
+  --kaart:#FFFFFF; --tekst:#0D1B2A; --sub:#5C6B7A; --rand:#E4E9EE;
+  --r1:10px; --r2:16px; --r3:26px;
+  --sh1:0 1px 2px rgba(13,27,42,.04), 0 6px 18px -8px rgba(13,27,42,.10);
+  --sh2:0 2px 6px rgba(13,27,42,.05), 0 26px 60px -18px rgba(13,27,42,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--grijs);color:var(--tekst);font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+@media(max-width:560px){.wrap{padding:0 16px}}
+.mono{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+h1,h2,h3{font-weight:700;line-height:1.14;letter-spacing:-.01em}
+a{color:inherit}
+button,input{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
+.btn{background:var(--teal);color:#fff;padding:13px 24px;border-radius:99px;font-weight:600;font-size:15px;
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:.18s;
+  box-shadow:0 8px 20px -8px rgba(23,190,187,.55)}
+.btn:hover{transform:translateY(-2px)}
+
+.navwrap{position:sticky;top:14px;z-index:70;padding:0 26px;margin-top:14px}
+.nav{max-width:1180px;margin:0 auto;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);
+  border:1px solid var(--rand);border-radius:99px;box-shadow:var(--sh1);
+  display:flex;align-items:center;justify-content:space-between;padding:8px 9px 8px 20px}
+.logo img{height:26px;display:block}
+nav{display:flex;gap:20px;align-items:center}
+nav a{text-decoration:none;color:var(--sub);font-size:14.5px;font-weight:500;transition:.18s}
+nav a:hover{color:var(--nacht)}
+nav a.active{color:var(--nacht);font-weight:700}
+.biz-link{display:flex;align-items:center;gap:6px;color:var(--nacht)!important;font-weight:600!important;
+  padding:7px 13px;border-radius:99px;background:var(--grijs);border:1px solid var(--rand)}
+.biz-link:hover{background:var(--rand)}
+@media(max-width:960px){nav a:not(.btn):not(.biz-link){display:none}.navwrap{padding:0 16px}}
+@media(max-width:640px){.biz-link span{display:none}}
+
+.phero{padding:52px 0 36px}
+.phero h1{font-size:clamp(2.1rem,3.8vw,3rem);margin-bottom:14px}
+.phero h1 span{color:var(--teal)}
+.phero p{font-size:16.5px;color:var(--sub);max-width:60ch;font-weight:400}
+
+.controls{position:sticky;top:78px;z-index:40;background:rgba(242,244,247,.9);backdrop-filter:blur(10px);
+  padding:14px 0;margin-bottom:26px;border-bottom:1px solid var(--rand)}
+.crow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.search{flex:1;min-width:220px;display:flex;align-items:center;gap:9px;background:var(--kaart);
+  border:1px solid var(--rand);border-radius:99px;padding:10px 16px;box-shadow:var(--sh1)}
+.search svg{width:16px;height:16px;color:var(--sub);flex:none}
+.search input{border:none;outline:none;font-size:14.5px;width:100%;background:transparent}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;background:var(--kaart);border:1px solid var(--rand);padding:5px;border-radius:99px;box-shadow:var(--sh1)}
+.tab{border-radius:99px;padding:8px 15px;font-size:13.5px;color:var(--sub);font-weight:600;transition:.16s;white-space:nowrap}
+.tab.on{background:var(--nacht);color:#fff}
+.count{font-size:13px;color:var(--sub);white-space:nowrap;font-weight:500}
+.count b{color:var(--nacht)}
+
+.idx{padding:0 0 84px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.dcard{background:var(--kaart);border:1px solid var(--rand);border-radius:var(--r2);overflow:hidden;transition:.18s;box-shadow:var(--sh1);animation:rise .35s backwards}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+.dcard:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
+.dphoto{height:130px;background-size:cover;background-position:center;position:relative}
+.dphoto .pb{position:absolute;top:9px;right:9px;background:rgba(13,27,42,.72);color:#fff;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px}
+.dbody{padding:16px 17px}
+.dcard h3{font-size:18px}
+.dwhere{color:var(--sub);font-size:12.5px;margin-top:2px}
+.dcard>.dbody>p{font-size:13.5px;color:var(--sub);margin:9px 0 12px;line-height:1.5;font-weight:400}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.tags span{font-size:11px;background:var(--grijs);padding:3px 9px;border-radius:99px;color:var(--nacht);font-weight:500}
+.rbtm{display:flex;justify-content:space-between;align-items:center;padding-top:11px;border-top:1px solid var(--rand)}
+.price{font-size:11px;color:var(--sub)}
+.price b{font-size:15px;color:var(--nacht);font-weight:700}
+.link{font-size:13px;color:var(--teal);font-weight:700;text-decoration:none}
+.empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:var(--sub);border:1px dashed var(--rand);border-radius:var(--r2);background:var(--kaart)}
+.empty b{display:block;color:var(--nacht);font-size:16px;margin-bottom:6px}
+
+.cta{padding:0 0 84px}
+.dark{background:var(--nacht);color:#EEF2F6;border-radius:var(--r3);padding:44px;position:relative;overflow:hidden;box-shadow:var(--sh2);
+  display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.dark::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(500px 320px at 88% 10%,rgba(23,190,187,.18),transparent 62%)}
+.dark>*{position:relative}
+@media(max-width:640px){.dark{padding:30px 22px;border-radius:var(--r2)}}
+.dark h2{font-size:clamp(1.5rem,2.4vw,1.9rem);font-weight:700}
+.dark h2 span{color:var(--teal)}
+.dark p{opacity:.62;font-size:14.5px;margin-top:6px;font-weight:400}
+
+footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:30px;border-bottom:1px solid rgba(238,242,246,.13)}
+@media(max-width:820px){.fgrid{grid-template-columns:1fr 1fr;gap:26px}}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+.flogo{display:inline-flex;background:#fff;border-radius:10px;padding:8px 12px}
+.flogo img{height:22px;display:block}
+.fgrid>div:first-child p{opacity:.55;font-size:13.5px;max-width:36ch;margin-top:14px;font-weight:400}
+.fcol .mono{opacity:.45;margin-bottom:12px;display:block}
+.fcol a{display:block;text-decoration:none;opacity:.7;font-size:14px;padding:3px 0;font-weight:500}
+.fcol a:hover{opacity:1;color:var(--teal)}
+.fbot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:18px;opacity:.42;font-size:12px}
+.techtag{display:inline-flex;align-items:center;gap:6px;opacity:.55!important;font-size:12.5px!important}
+.techtag i{width:5px;height:5px;border-radius:50%;background:var(--teal);display:inline-block}
+</style>
+</head>
+<body>
+
+<div class="navwrap">
+  <div class="nav">
+    <a href="index.html" class="logo"><img src="TripPick_logo.svg" alt="TripPick.eu"></a>
+    <nav>
+      <a href="hoe-het-werkt.html">Hoe het werkt</a>
+      <a href="bestemmingen.html" class="active">Bestemmingen</a>
+      <a href="zakelijk.html" class="biz-link"><svg viewBox="0 0 20 20" fill="none" style="width:14px;height:14px"><path d="M4 17V8l6-4 6 4v9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 17v-5h4v5" stroke="currentColor" stroke-width="1.5"/></svg><span>Voor reisorganisaties</span></a>
+      <a href="index.html#tool" class="btn">Start jouw match</a>
+    </nav>
+  </div>
+</div>
+
+<section class="phero">
+  <div class="wrap">
+    <span class="mono" style="color:var(--teal);display:block;margin-bottom:12px;font-weight:700">De index</span>
+    <h1>Blader door wat er nu in <span>staat</span>.</h1>
+    <p>Dit zijn de bestemmingen die op dit moment in de TripPick-index staan, dagelijks ververst met actuele prijzen. Liever een match op maat? Beantwoord in plaats daarvan vijf vragen.</p>
+  </div>
+</section>
+
+<div class="controls">
+  <div class="wrap crow">
+    <div class="search">
+      <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.6"/><path d="m18 18-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input id="q" type="text" placeholder="Zoek op bestemming of land...">
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<section class="idx">
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="dark">
+      <div>
+        <h2>Liever een <span>match op maat</span>?</h2>
+        <p>Vijf vragen, ruim een minuut, drie opties die echt bij je passen.</p>
+      </div>
+      <a href="index.html#tool" class="btn">Start jouw match →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a href="index.html" class="flogo"><img src="TripPick_logo.svg" alt="TripPick.eu"></a>
+        <p>Onafhankelijk platform voor het kiezen van een reisbestemming. Niet verbonden aan één reisorganisatie.</p>
+        <div class="micro" style="margin-top:14px"><span class="techtag"><i></i>Aangedreven door Navago</span></div>
+      </div>
+      <div class="fcol"><span class="mono">Platform</span><a href="index.html#tool">Keuzehulp</a><a href="hoe-het-werkt.html">Hoe het werkt</a><a href="bestemmingen.html">Bestemmingen</a></div>
+      <div class="fcol"><span class="mono">Zakelijk</span><a href="zakelijk.html">Voor reisorganisaties</a><a href="zakelijk.html#contact">Demo aanvragen</a><a href="index.html#technologie">Over Navago</a></div>
+      <div class="fcol"><span class="mono">Informatie</span><a href="hoe-het-werkt.html">Hoe we werken</a><a href="contact.html#over">Over ons</a><a href="privacy.html">Privacy en cookies</a><a href="contact.html">Contact</a></div>
+    </div>
+    <div class="fbot mono"><span>TripPick · onderdeel van OnlineKoers · KvK 75082888</span><span>trippick.eu</span></div>
+  </div>
+</footer>
+
+<script>
+const D=[
+ {n:"Alentejo",l:"Portugal",t:["rust","natuur","eten"],p:640,w:"Half zo druk als de Algarve, met dezelfde kust",img:"https://picsum.photos/seed/alentejo7/600/400"},
+ {n:"Puglia",l:"Italië",t:["eten","zon","cultuur"],p:820,w:"Zee én dorpen, buiten juli opvallend rustig",img:"https://picsum.photos/seed/puglia4/600/400"},
+ {n:"Slovenië",l:"Julische Alpen",t:["natuur","actief","rust"],p:560,w:"Binnen een dag rijden, bergen en meren",img:"https://picsum.photos/seed/slovenie9/600/400"},
+ {n:"Kreta",l:"Griekenland",t:["zon","eten","cultuur"],p:690,w:"Groot genoeg om de drukte te ontlopen",img:"https://picsum.photos/seed/kreta3/600/400"},
+ {n:"Elzas",l:"Frankrijk",t:["eten","cultuur","rust"],p:430,w:"Vijf uur rijden, wijn en vakwerkdorpen",img:"https://picsum.photos/seed/elzas2/600/400"},
+ {n:"Lissabon",l:"Portugal",t:["cultuur","eten"],p:490,w:"Werkt het hele jaar door, ook in januari",img:"https://picsum.photos/seed/lissabon6/600/400"},
+ {n:"Zuid-Tirol",l:"Italië",t:["natuur","actief","eten"],p:880,w:"Hooggebergte zonder te vliegen",img:"https://picsum.photos/seed/tirol8/600/400"},
+ {n:"Chalkidiki",l:"Noord-Griekenland",t:["zon","rust","natuur"],p:610,w:"Vlakke stranden en korte transfers",img:"https://picsum.photos/seed/chalkidiki5/600/400"},
+ {n:"Baskenland",l:"Spanje en Frankrijk",t:["eten","cultuur","actief"],p:790,w:"Uitzonderlijk eten, koeler in augustus",img:"https://picsum.photos/seed/baskenland1/600/400"},
+ {n:"Madeira",l:"Portugal",t:["natuur","actief","rust"],p:840,w:"Twintig graden in februari",img:"https://picsum.photos/seed/madeira0/600/400"},
+ {n:"Jutland",l:"Denemarken",t:["natuur","rust"],p:520,w:"Zes uur rijden, ideaal met kleine kinderen",img:"https://picsum.photos/seed/jutland2/600/400"},
+ {n:"Andalusië",l:"Spanje",t:["cultuur","zon","eten"],p:580,w:"In augustus te heet, daarbuiten ideaal",img:"https://picsum.photos/seed/andalusie3/600/400"},
+ {n:"Toscane",l:"Italië",t:["eten","cultuur","rust"],p:900,w:"Het voorjaar is het rustigst en het groenst",img:"https://picsum.photos/seed/toscane9/600/400"},
+ {n:"Fjorden",l:"Noorwegen",t:["natuur","actief"],p:1450,w:"Duur, maar in juni licht tot middernacht",img:"https://picsum.photos/seed/fjorden6/600/400"},
+ {n:"Azoren",l:"Portugal",t:["natuur","actief","rust"],p:970,w:"Groen, leeg en zelden boven de 26 graden",img:"https://picsum.photos/seed/azoren4/600/400"},
+ {n:"Bretagne",l:"Frankrijk",t:["natuur","rust","actief"],p:470,w:"Ruige kust, zes uur rijden vanaf Nederland",img:"https://picsum.photos/seed/bretagne1/600/400"},
+ {n:"Umbrië",l:"Italië",t:["rust","eten","cultuur"],p:760,w:"Toscane zonder de drukte en de prijzen",img:"https://picsum.photos/seed/umbrie2/600/400"},
+ {n:"Algarve",l:"Portugal",t:["zon","actief","natuur"],p:610,w:"Rotskust en golfsurfen, het hele jaar mild",img:"https://picsum.photos/seed/algarve3/600/400"}
+];
+const LBL={rust:"Rust",cultuur:"Cultuur",natuur:"Natuur",zon:"Zon en water",eten:"Eten",actief:"Actief"};
+let F='alles',Q='';
+const FS=[['alles','Alles'],['rust','Rust'],['cultuur','Cultuur'],['natuur','Natuur'],['zon','Zon en water'],['eten','Eten'],['actief','Actief']];
+const tBox=document.getElementById('tabs'),gBox=document.getElementById('grid'),cEl=document.getElementById('count');
+FS.forEach(([v,l])=>{const b=document.createElement('button');b.className='tab'+(v==='alles'?' on':'');b.textContent=l;
+  b.onclick=()=>{F=v;tBox.querySelectorAll('.tab').forEach(c=>c.classList.remove('on'));b.classList.add('on');paint()};tBox.appendChild(b)});
+document.getElementById('q').addEventListener('input',e=>{Q=e.target.value.toLowerCase();paint()});
+function paint(){
+  let list=F==='alles'?D:D.filter(d=>d.t.includes(F));
+  if(Q)list=list.filter(d=>d.n.toLowerCase().includes(Q)||d.l.toLowerCase().includes(Q));
+  cEl.innerHTML=`<b>${list.length}</b> van ${D.length} bestemmingen`;
+  gBox.innerHTML=list.length?list.map((d,k)=>`<article class="dcard" style="animation-delay:${k*30}ms">
+      <div class="dphoto" style="background-image:url('${d.img}')"><span class="pb">${LBL[d.t[0]]}</span></div>
+      <div class="dbody">
+        <h3>${d.n}</h3><div class="dwhere">${d.l}</div>
+        <p>${d.w}</p>
+        <div class="tags">${d.t.map(t=>`<span>${LBL[t]}</span>`).join('')}</div>
+        <div class="rbtm"><span class="price">vanaf<br><b>€ ${d.p}</b></span><a class="link" href="#">Bekijk reizen →</a></div>
+      </div>
+    </article>`).join(''):'<div class="empty"><b>Niets gevonden</b>Probeer een andere zoekterm of filter, of laat de keuzehulp het voor je uitzoeken.</div>';
+}
+paint();
+</script>
+</body>
+</html>
