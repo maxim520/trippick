@@ -3,8 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Waarom mensen spijt krijgen van hun bestemming · TripPick.eu</title>
-<meta name="description" content="Bijna altijd is er één vraag die vooraf niet gesteld is. Over hitte, drukte of reistijd. Drie herkenbare situaties en hoe je ze voorkomt.">
+<title>Spijt van je reisbestemming? Drie situaties en de vraag die ontbrak · TripPick.eu</title>
+<meta name="description" content="Vakantie te warm, te druk, of reistijd onderschat? Bijna altijd ontbrak één vraag vooraf. Drie herkenbare situaties en hoe je het volgende keer anders aanpakt.">
+<link rel="canonical" href="https://trippick.eu/artikelen/waarom-mensen-spijt-krijgen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spijt van je reisbestemming? Drie situaties en de vraag die ontbrak">
+<meta property="og:description" content="Vakantie te warm, te druk, of reistijd onderschat? Bijna altijd ontbrak één vraag vooraf. Drie herkenbare situaties en hoe je het volgende keer anders aanpakt.">
+<meta property="og:url" content="https://trippick.eu/artikelen/waarom-mensen-spijt-krijgen">
+<meta property="og:site_name" content="TripPick.eu">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Spijt van je reisbestemming? Drie situaties en de vraag die ontbrak",
+  "description": "Vakantie te warm, te druk, of reistijd onderschat? Bijna altijd ontbrak één vraag vooraf.",
+  "url": "https://trippick.eu/artikelen/waarom-mensen-spijt-krijgen",
+  "datePublished": "2026-08-18",
+  "dateModified": "2026-08-18",
+  "publisher": {"@type": "Organization", "name": "TripPick.eu", "url": "https://trippick.eu"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://trippick.eu/artikelen/waarom-mensen-spijt-krijgen"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "TripPick", "item": "https://trippick.eu"},
+      {"@type": "ListItem", "position": 2, "name": "Artikelen", "item": "https://trippick.eu/artikelen/"},
+      {"@type": "ListItem", "position": 3, "name": "Spijt van je reisbestemming?", "item": "https://trippick.eu/artikelen/waarom-mensen-spijt-krijgen"}
+    ]
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
@@ -48,8 +75,19 @@ nav a.active{color:var(--nacht);font-weight:700}
 @media(max-width:960px){nav a:not(.btn):not(.biz-link){display:none}.navwrap{padding:0 16px}}
 @media(max-width:640px){.biz-link span{display:none}}
 
+/* breadcrumb */
+.bc-wrap{padding:0 26px}
+@media(max-width:560px){.bc-wrap{padding:0 16px}}
+.bc{max-width:1180px;margin:0 auto;padding:14px 0 0}
+.bc ol{display:flex;flex-wrap:wrap;list-style:none;font-size:12.5px;color:var(--sub)}
+.bc li{display:flex;align-items:center}
+.bc li+li::before{content:"›";margin:0 8px;opacity:.35}
+.bc a{color:var(--sub);text-decoration:none;transition:.18s}
+.bc a:hover{color:var(--teal)}
+.bc [aria-current]{color:var(--nacht);font-weight:500}
+
 /* page hero */
-.phero{padding:56px 0 60px;position:relative;overflow:hidden}
+.phero{padding:40px 0 52px;position:relative;overflow:hidden}
 .phero::before{content:"";position:absolute;inset:-10% -20% auto -20%;height:520px;pointer-events:none;
   background:radial-gradient(600px 380px at 80% 20%,rgba(23,190,187,.10),transparent 66%),
              radial-gradient(600px 400px at 10% 90%,rgba(127,211,247,.14),transparent 68%)}
@@ -63,17 +101,41 @@ nav a.active{color:var(--nacht);font-weight:700}
 .art-inner{max-width:740px;margin:0 auto;background:var(--kaart);border:1px solid var(--rand);
   border-radius:var(--r3);padding:52px 60px;box-shadow:var(--sh1)}
 @media(max-width:760px){.art-inner{padding:32px 24px;border-radius:var(--r2)}}
-.art-inner h2{font-size:1.5rem;margin:40px 0 14px;color:var(--nacht)}
-.art-inner h3{font-size:1.15rem;margin:28px 0 10px;color:var(--nacht)}
+.art-inner h2{font-size:1.45rem;margin:44px 0 14px;color:var(--nacht)}
+.art-inner h3{font-size:1.1rem;margin:28px 0 10px;color:var(--nacht)}
 .art-inner p{color:#2D3E4E;font-size:16px;line-height:1.72;margin-bottom:18px;font-weight:400}
 .art-inner p:last-child{margin-bottom:0}
 .art-inner strong{font-weight:600;color:var(--nacht)}
 .art-inner a{color:var(--teal);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(23,190,187,.3)}
 .art-inner a:hover{border-color:var(--teal)}
+
+/* toc */
+.toc{background:var(--grijs);border-left:3px solid var(--teal);
+  border-radius:0 var(--r1) var(--r1) 0;padding:18px 22px;margin:0 0 34px}
+.toc b{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.toc ol{padding-left:16px;display:flex;flex-direction:column;gap:5px}
+.toc li{font-size:14px;color:var(--sub)}
+.toc a{color:var(--sub);text-decoration:none;transition:.18s}
+.toc a:hover{color:var(--nacht)}
+
+/* situatieblok */
 .sitblock{background:var(--grijs);border-left:3px solid var(--teal);border-radius:0 var(--r1) var(--r1) 0;
   padding:18px 22px;margin:28px 0}
 .sitblock p{margin:0;font-size:15px}
-.sitblock strong{display:block;margin-bottom:6px;color:var(--teal);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.sitblock strong{display:block;margin-bottom:6px;color:var(--teal);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+
+/* inline cta */
+.art-cta-mid{background:rgba(23,190,187,.06);border:1px solid rgba(23,190,187,.22);
+  border-radius:var(--r2);padding:26px 28px;margin:44px 0}
+.art-cta-mid p{font-size:15px;color:#2D3E4E;line-height:1.65;margin-bottom:16px;font-weight:400}
+.art-cta-mid .btn{font-size:14px;padding:11px 20px}
+
+/* art meta (trust block) */
+.art-meta{display:flex;flex-wrap:wrap;gap:20px;padding:22px 0 0;margin:36px 0 0;
+  border-top:1px solid var(--rand);font-size:12px;color:var(--sub)}
+.art-meta-item{display:flex;flex-direction:column;gap:2px}
+.art-meta-item strong{font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--nacht)}
 
 /* gerelateerd */
 .related{padding:0 0 84px}
@@ -84,23 +146,20 @@ nav a.active{color:var(--nacht);font-weight:700}
 .rel-card:hover{transform:translateY(-3px);box-shadow:var(--sh2)}
 .rel-tag{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
 .rel-card h3{font-size:15.5px;color:var(--nacht)}
-.rel-card span{color:var(--teal);font-size:13px;font-weight:600;margin-top:auto}
+.rel-card span.arrow{color:var(--teal);font-size:13px;font-weight:600;margin-top:auto}
 
-/* cta */
+/* cta dark */
 .dark{background:var(--nacht);color:#EEF2F6;border-radius:var(--r3);padding:52px 44px;position:relative;overflow:hidden;box-shadow:var(--sh2)}
 .dark::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(560px 360px at 88% 6%,rgba(23,190,187,.16),transparent 62%),
              radial-gradient(520px 400px at 2% 98%,rgba(127,211,247,.14),transparent 66%)}
 .dark>*{position:relative}
 @media(max-width:640px){.dark{padding:32px 22px;border-radius:var(--r2)}}
-.dark h2{font-size:clamp(1.7rem,2.7vw,2.2rem);margin-bottom:14px}
+.dark h2{font-size:clamp(1.7rem,2.7vw,2.2rem);margin-bottom:10px}
 .dark h2 span{color:var(--teal)}
 .dark p{opacity:.68;font-size:15.5px;max-width:66ch;font-weight:400}
 .cta{padding:0 0 84px}
 .cta-in{display:flex;justify-content:space-between;align-items:center;gap:36px;flex-wrap:wrap}
-.cta h2{font-size:clamp(1.7rem,2.7vw,2.2rem)}
-.cta h2 span{color:var(--teal)}
-.cta p{opacity:.62;font-size:15px;margin-top:8px;font-weight:400}
 
 /* footer */
 footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
@@ -133,11 +192,21 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
   </div>
 </div>
 
+<div class="bc-wrap">
+  <nav class="bc" aria-label="Navigatiepad">
+    <ol>
+      <li><a href="../index.html">TripPick</a></li>
+      <li><a href="index.html">Artikelen</a></li>
+      <li><span aria-current="page">Spijt van je bestemming?</span></li>
+    </ol>
+  </nav>
+</div>
+
 <section class="phero">
   <div class="wrap">
-    <span class="mono eyebrow">Keuze maken</span>
-    <h1>Waarom mensen spijt krijgen van hun <span>bestemming</span></h1>
-    <p>Bijna altijd is er één vraag die vooraf niet gesteld is. Die ene vraag die het verschil maakt tussen een goede vakantie en drie weken nadenken over wat je anders had moeten doen.</p>
+    <span class="mono eyebrow">Bestemming kiezen</span>
+    <h1>Spijt van je reisbestemming: de <span>vraag</span> die je vooraf had moeten stellen</h1>
+    <p>Bijna altijd is er één vraag die niet gesteld is. Die ene vraag die het verschil maakt tussen een goede vakantie en drie weken nadenken over wat je anders had moeten doen.</p>
   </div>
 </section>
 
@@ -145,14 +214,24 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
   <div class="wrap">
     <div class="art-inner">
 
+      <nav class="toc" aria-label="Inhoudsopgave">
+        <b>In dit artikel</b>
+        <ol>
+          <li><a href="#hitte-kreta">Vakantie te warm: Kreta met kinderen in augustus</a></li>
+          <li><a href="#drukte-seizoen">Een 'rustige' bestemming die het in juli niet bleek te zijn</a></li>
+          <li><a href="#reistijd-peuter">Reistijd met een peuter: waarom drie uur meer is dan drie uur</a></li>
+          <li><a href="#ontbrekende-vraag">Wat er telkens ontbrak</a></li>
+        </ol>
+      </nav>
+
       <p>Reisagenten en reissites zijn er goed in geworden om een bestemming te verkopen. Ze laten zien wat er mooi aan is: de kleur van het water, een terras bij zonsondergang, een marktplein zonder toeristen op de foto. Wat ze minder goed doen, is vertellen wat er niet aan klopt — voor jou, in jouw situatie, in die specifieke maand.</p>
 
       <p>Dat is niet per definitie kwade wil. Veel van wat een reis wel of niet goed maakt voor een specifiek gezin of stel is moeilijk te standaardiseren in een productbeschrijving. Maar de gevolgen zijn wel degelijk concreet. Hieronder drie situaties die opvallend veel voorkomen.</p>
 
-      <h2>Situatie 1: het gezin op Kreta in augustus</h2>
+      <h2 id="hitte-kreta">Vakantie te warm: Kreta met jonge kinderen in augustus</h2>
 
       <div class="sitblock">
-        <strong>Herkennning</strong>
+        <strong>Herkenning</strong>
         <p>Een gezin met twee kinderen van vijf en zeven boekt begin mei een all-inclusive resort op Kreta voor de laatste twee weken van augustus. Prijs klopt, foto's zien er goed uit, recensies zijn positief. Eenmaal ter plekke blijkt de temperatuur overdag consistent boven de 37 graden te liggen.</p>
       </div>
 
@@ -160,9 +239,9 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
 
       <p>Het gaat hier niet om slecht weer of pech. Kreta in augustus is altijd zo. De gemiddelde temperatuur in Heraklion in augustus is 29 graden, maar dagpieken van 35 tot 38 zijn de norm, zeker in het binnenland en op blootgestelde stranden. Dat staat nergens prominent bij de productomschrijving, omdat het een gegeven is dat voor veel reizigers geen probleem is. Voor een gezin met jonge kinderen is het de beslissende factor.</p>
 
-      <p>De vraag die hier niet gesteld is: <strong>hoe oud zijn de kinderen en hoe goed verdragen ze hitte?</strong> Griekenland in juni of september, of een bestemming op een breedtegraad waar augustustemperaturen vijf graden lager liggen — Noord-Spanje, Portugal boven de Algarve, Slovenië — had het probleem volledig voorkomen.</p>
+      <p>De vraag die hier niet gesteld is: <strong>hoe oud zijn de kinderen en hoe goed verdragen ze hitte?</strong> Griekenland in juni of september, of een bestemming op een breedtegraad waar augústustemperaturen vijf graden lager liggen — Noord-Spanje, Portugal boven de Algarve, Slovenië — had het probleem volledig voorkomen.</p>
 
-      <h2>Situatie 2: het stel dat een "rustige" bestemming boekte</h2>
+      <h2 id="drukte-seizoen">Drukte in het hoogseizoen: een 'rustig' dorp dat het in juli niet meer was</h2>
 
       <div class="sitblock">
         <strong>Herkenning</strong>
@@ -175,11 +254,17 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
 
       <p>De vraag die hier niet gesteld is: <strong>hoe druk is deze specifieke plek in de maand dat je er naartoe gaat?</strong> Niet in het algemeen, niet op basis van jaargemiddelden. In die week, in dat dorp.</p>
 
-      <h2>Situatie 3: de reistijd die onderschat werd</h2>
+      <div class="art-cta-mid" data-track-view="contextual_cta_view" data-label="midden-hitte-drukte">
+        <p>Hitte en drukte zijn precies het soort factoren dat bepaalt of een bestemming bij jouw situatie past — en die bij een standaard boekingssite niet aan bod komen. TripPick stelt die vragen wél, en weegt ze mee in de berekening van je match.</p>
+        <a href="../index.html#tool" class="btn"
+           data-track="contextual_cta_click" data-label="midden-artikel">Bereken jouw match →</a>
+      </div>
+
+      <h2 id="reistijd-peuter">Reistijd met een peuter: waarom drie uur vliegen meer is dan drie uur</h2>
 
       <div class="sitblock">
         <strong>Herkenning</strong>
-        <p>Een stel met een kind van anderhalf jaar boekt een vlucht naar Kos: drie uur vliegen, een uur transfer naar het hotel. Op de heenreis gaat het nog redelijk. Op de terugweg — vroege vertrek, moe kind, overvolle bus naar de luchthaven — besluiten ze dat ze dit nooit meer doen.</p>
+        <p>Een stel met een kind van anderhalf jaar boekt een vlucht naar Kos: drie uur vliegen, een uur transfer naar het hotel. Op de heenreis gaat het nog redelijk. Op de terugweg — vroeg vertrek, moe kind, overvolle bus naar de luchthaven — besluiten ze dat ze dit nooit meer doen.</p>
       </div>
 
       <p>Drie uur vliegen klinkt niet lang. Voor volwassenen is dat ook zo. Voor een kind van anderhalf jaar dat niet begrepen heeft waarom het op een stoel moet blijven zitten, is drie uur een abstract begrip dat al na veertig minuten concreet en luidruchtig wordt.</p>
@@ -188,17 +273,30 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
 
       <p>De vraag die hier niet gesteld is: <strong>wat is de totale reistijd van voordeur tot hotelkamer, en wat betekent dat concreet met een kind van deze leeftijd?</strong> Zie ook: <a href="zonvakantie-met-kinderen.html">zonvakantie met kinderen onder de vier</a>, waar dit uitgebreider aan bod komt.</p>
 
-      <h2>Wat deze drie situaties gemeen hebben</h2>
+      <h2 id="ontbrekende-vraag">Wat er telkens ontbrak: de vraag die je voor het boeken had moeten stellen</h2>
 
       <p>In alle drie de gevallen was de informatie die ontbrak niet geheim. De temperaturen op Kreta in augustus zijn gewoon op te zoeken. Dat Mallorca in juli druk is, weet iedereen in principe. Dat reistijd met een peuter zwaarder telt dan met volwassenen, is logisch als je erover nadenkt.</p>
 
-      <p>Maar die informatie werd niet actief aangeboden op het moment dat de beslissing gemaakt werd. De boekingssite toont wat er mooi is. De keuzehulp vraagt naar filters die je zelf al ingevuld moet hebben. En niemand vraagt: wacht even, hoe oud is dat kind precies, en hoe tolerant zijn jullie voor hitte?</p>
+      <p>Maar die informatie werd niet actief aangeboden op het moment dat de beslissing gemaakt werd. De boekingssite toont wat er mooi is. De zoekfunctie vraagt naar filters die je zelf al ingevuld moet hebben. En niemand vraagt: wacht even, hoe oud is dat kind precies, en hoe tolerant zijn jullie voor hitte?</p>
 
       <p>TripPick werkt anders omdat de vragen die gesteld worden, bewust gaan over de situatie in plaats van over filters. Wanneer je weg wilt, met wie, wat je budget is en wat de reis je moet opleveren. Op basis van die antwoorden worden bestemmingen berekend — niet aanbevolen. En bij elke match staat niet alleen waarom die bestemming past, maar ook waar het kan schuren. Niet om af te schrikken, maar omdat je die informatie nodig hebt om een goede beslissing te nemen.</p>
 
       <p>Dat is het verschil tussen een tool die verkoopt en een tool die helpt.</p>
 
-      <p style="margin-top:28px"><a href="../index.html#tool">Probeer de keuzehulp →</a></p>
+      <div class="art-meta">
+        <div class="art-meta-item">
+          <strong>Auteur</strong>
+          <span>TripPick-redactie</span>
+        </div>
+        <div class="art-meta-item">
+          <strong>Bijgewerkt</strong>
+          <span>Augustus 2026</span>
+        </div>
+        <div class="art-meta-item">
+          <strong>Klimaatdata</strong>
+          <span>Meteostat / Open-Meteo historisch gemiddelde</span>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -210,15 +308,17 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
       <span class="mono eyebrow">Meer lezen</span>
     </div>
     <div class="rel-grid">
-      <a href="reisadvies-ai.html" class="rel-card">
-        <span class="rel-tag">AI en reizen</span>
-        <h3>Reisadvies van AI: waar het misgaat</h3>
-        <span>Lees artikel →</span>
+      <a href="zonvakantie-met-kinderen.html" class="rel-card"
+         data-track="related_article_click" data-label="zonvakantie-met-kinderen">
+        <span class="rel-tag">Reizen met kinderen</span>
+        <h3>Zonvakantie met een peuter: waarom reistijd de beslissende variabele is</h3>
+        <span class="arrow">Lees artikel →</span>
       </a>
-      <a href="zonvakantie-met-kinderen.html" class="rel-card">
-        <span class="rel-tag">Gezin · jonge kinderen</span>
-        <h3>Zonvakantie met kinderen onder de vier</h3>
-        <span>Lees artikel →</span>
+      <a href="reisadvies-ai.html" class="rel-card"
+         data-track="related_article_click" data-label="reisadvies-ai">
+        <span class="rel-tag">Reisadvies &amp; AI</span>
+        <h3>AI reisadvies: wat klopt er niet, en wat controleer je zelf?</h3>
+        <span class="arrow">Lees artikel →</span>
       </a>
     </div>
   </div>
@@ -226,13 +326,14 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
 
 <section class="cta">
   <div class="wrap">
-    <div class="dark cta-in">
+    <div class="dark cta-in" data-track-view="contextual_cta_view" data-label="einde-artikel">
       <div>
-        <h2>Klaar om het te <span>proberen</span>?</h2>
-        <p>Een paar vragen, ruim een minuut, drie echte opties.</p>
+        <h2>Wil je weten welke bestemming bij <span>jouw situatie</span> past?</h2>
+        <p>Hitte, drukte en reistijd worden allemaal meegewogen. Niet als filters die je zelf instelt — als vragen over je situatie.</p>
       </div>
       <div>
-        <a href="../index.html#tool" class="btn">Start jouw match →</a>
+        <a href="../index.html#tool" class="btn"
+           data-track="match_start" data-label="einde-waarom-spijt">Start jouw match →</a>
       </div>
     </div>
   </div>
@@ -254,5 +355,33 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
   </div>
 </footer>
 
+<script>
+!function(){
+  var slug='waarom-mensen-spijt-krijgen',cat='bestemming-kiezen';
+  function evt(n,d){d=d||{};if(typeof gtag==='function')gtag('event',n,Object.assign({article_slug:slug,article_category:cat},d));if(window.dataLayer)window.dataLayer.push(Object.assign({event:n,article_slug:slug},d));}
+  evt('article_view');
+  // scroll depth
+  var done={},body=document.body,html=document.documentElement;
+  window.addEventListener('scroll',function(){
+    var h=Math.max(body.scrollHeight,html.scrollHeight)-window.innerHeight;
+    if(h<=0)return;
+    var p=Math.round(window.scrollY/h*100);
+    [25,50,75,100].forEach(function(m){if(p>=m&&!done[m]){done[m]=1;evt('scroll_depth',{percent:m});}});
+  },{passive:true});
+  // click tracking
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-track]');
+    if(el)evt(el.dataset.track,{label:el.dataset.label||''});
+  });
+  // CTA visibility
+  if(window.IntersectionObserver){
+    document.querySelectorAll('[data-track-view]').forEach(function(el){
+      new IntersectionObserver(function(entries,obs){
+        entries.forEach(function(entry){if(entry.isIntersecting){evt(el.dataset.trackView||'contextual_cta_view',{label:el.dataset.label||''});obs.disconnect();}});
+      },{threshold:.5}).observe(el);
+    });
+  }
+}();
+</script>
 </body>
 </html>

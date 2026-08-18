@@ -3,8 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Artikelen over reizen · TripPick.eu</title>
-<meta name="description" content="Praktische artikelen over bestemmingen kiezen, reizen met kinderen en AI-reisadvies. Geen lijstjes, wel onderbouwing.">
+<title>Artikelen over reizen kiezen · TripPick.eu</title>
+<meta name="description" content="Nuchter onderbouwde artikelen over bestemmingen, reistijden en reisadvies. Geen generieke lijstjes — wel de vragen die je voor het boeken had moeten stellen.">
+<link rel="canonical" href="https://trippick.eu/artikelen/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Artikelen over reizen kiezen · TripPick.eu">
+<meta property="og:description" content="Nuchter onderbouwde artikelen over bestemmingen, reistijden en reisadvies. Geen generieke lijstjes — wel de vragen die je voor het boeken had moeten stellen.">
+<meta property="og:url" content="https://trippick.eu/artikelen/">
+<meta property="og:site_name" content="TripPick.eu">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Artikelen over reizen kiezen",
+  "description": "Nuchter onderbouwde artikelen over bestemmingen kiezen, reistijden en reisadvies.",
+  "url": "https://trippick.eu/artikelen/",
+  "publisher": {"@type": "Organization", "name": "TripPick.eu", "url": "https://trippick.eu"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "TripPick", "item": "https://trippick.eu"},
+      {"@type": "ListItem", "position": 2, "name": "Artikelen", "item": "https://trippick.eu/artikelen/"}
+    ]
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
@@ -27,9 +50,6 @@ a{color:inherit}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:8px}
 .eyebrow{color:var(--teal);display:block;margin-bottom:14px;font-weight:700}
-.sec-head{max-width:60ch;margin-bottom:36px}
-.sec-head h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:12px}
-.sec-head p{color:var(--sub);font-size:16.5px;font-weight:400}
 .btn{background:var(--teal);color:#fff;padding:13px 24px;border-radius:99px;font-weight:600;font-size:15px;
   display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:.18s;
   box-shadow:0 8px 20px -8px rgba(23,190,187,.55)}
@@ -51,8 +71,19 @@ nav a.active{color:var(--nacht);font-weight:700}
 @media(max-width:960px){nav a:not(.btn):not(.biz-link){display:none}.navwrap{padding:0 16px}}
 @media(max-width:640px){.biz-link span{display:none}}
 
+/* breadcrumb */
+.bc-wrap{padding:0 26px}
+@media(max-width:560px){.bc-wrap{padding:0 16px}}
+.bc{max-width:1180px;margin:0 auto;padding:14px 0 0}
+.bc ol{display:flex;flex-wrap:wrap;list-style:none;font-size:12.5px;color:var(--sub)}
+.bc li{display:flex;align-items:center}
+.bc li+li::before{content:"›";margin:0 8px;opacity:.35}
+.bc a{color:var(--sub);text-decoration:none;transition:.18s}
+.bc a:hover{color:var(--teal)}
+.bc [aria-current]{color:var(--nacht);font-weight:500}
+
 /* page hero */
-.phero{padding:56px 0 60px;position:relative;overflow:hidden}
+.phero{padding:40px 0 56px;position:relative;overflow:hidden}
 .phero::before{content:"";position:absolute;inset:-10% -20% auto -20%;height:520px;pointer-events:none;
   background:radial-gradient(600px 380px at 80% 20%,rgba(23,190,187,.10),transparent 66%),
              radial-gradient(600px 400px at 10% 90%,rgba(127,211,247,.14),transparent 68%)}
@@ -69,24 +100,22 @@ nav a.active{color:var(--nacht);font-weight:700}
   text-decoration:none;display:flex;flex-direction:column;gap:12px;transition:.18s}
 .acard:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
 .atag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
-.acard h2{font-size:clamp(1.3rem,2vw,1.6rem);color:var(--nacht)}
+.acard h2{font-size:clamp(1.3rem,2vw,1.55rem);color:var(--nacht)}
 .acard p{color:var(--sub);font-size:14.5px;line-height:1.6;font-weight:400;flex:1}
 .alink{color:var(--teal);font-weight:600;font-size:14px;margin-top:4px}
 
-/* dark */
+/* dark cta */
 .dark{background:var(--nacht);color:#EEF2F6;border-radius:var(--r3);padding:52px 44px;position:relative;overflow:hidden;box-shadow:var(--sh2)}
 .dark::before{content:"";position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(560px 360px at 88% 6%,rgba(23,190,187,.16),transparent 62%),
              radial-gradient(520px 400px at 2% 98%,rgba(127,211,247,.14),transparent 66%)}
 .dark>*{position:relative}
 @media(max-width:640px){.dark{padding:32px 22px;border-radius:var(--r2)}}
-.dark h2{font-size:clamp(1.7rem,2.7vw,2.2rem);margin-bottom:14px}
+.dark h2{font-size:clamp(1.7rem,2.7vw,2.2rem);margin-bottom:10px}
 .dark h2 span{color:var(--teal)}
+.dark p{opacity:.68;font-size:15px;max-width:66ch;font-weight:400;margin-top:8px}
 .cta{padding:0 0 84px}
 .cta-in{display:flex;justify-content:space-between;align-items:center;gap:36px;flex-wrap:wrap}
-.cta h2{font-size:clamp(1.7rem,2.7vw,2.2rem)}
-.cta h2 span{color:var(--teal)}
-.cta p{opacity:.62;font-size:15px;margin-top:8px;font-weight:400}
 
 /* footer */
 footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
@@ -119,11 +148,20 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
   </div>
 </div>
 
+<div class="bc-wrap">
+  <nav class="bc" aria-label="Navigatiepad">
+    <ol>
+      <li><a href="../index.html">TripPick</a></li>
+      <li><span aria-current="page">Artikelen</span></li>
+    </ol>
+  </nav>
+</div>
+
 <section class="phero">
   <div class="wrap">
     <span class="mono eyebrow">Artikelen</span>
     <h1>Reizen kiezen is een <span>vak</span>.</h1>
-    <p>Praktische artikelen over bestemmingen, reistijden en wat AI wel en niet kan. Geen lijstjes zonder onderbouwing.</p>
+    <p>Nuchter onderbouwde artikelen over bestemmingen, reistijden en wat AI wel en niet kan. Geen generieke lijstjes — wel de vragen die je voor het boeken had moeten stellen.</p>
   </div>
 </section>
 
@@ -131,31 +169,39 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
   <div class="wrap">
     <div class="agrid">
 
-      <a href="waarom-mensen-spijt-krijgen.html" class="acard">
-        <span class="atag">Keuze maken</span>
-        <h2>Waarom mensen spijt krijgen van hun bestemming</h2>
-        <p>Bijna altijd is er één vraag die vooraf niet gesteld is. Over hitte in augustus, over hoe druk een bestemming in een bepaalde maand werkelijk is, of over vier uur extra reistijd die onderschat werd.</p>
+      <a href="waarom-mensen-spijt-krijgen.html" class="acard"
+         data-category="keuze-maken"
+         data-track="related_article_click" data-label="waarom-mensen-spijt-krijgen">
+        <span class="atag">Bestemming kiezen</span>
+        <h2>Spijt van je reisbestemming: de vraag die je vooraf had moeten stellen</h2>
+        <p>Hitte in augustus, drukte die bij reviews niet zichtbaar is, vier uur reistijd met een peuter. Drie herkenbare situaties, één gemeenschappelijke oorzaak.</p>
         <span class="alink">Lees artikel →</span>
       </a>
 
-      <a href="waar-naartoe-in-mei.html" class="acard">
-        <span class="atag">Bestemmingen · mei</span>
+      <a href="waar-naartoe-in-mei.html" class="acard"
+         data-category="beste-reistijd"
+         data-track="related_article_click" data-label="waar-naartoe-in-mei">
+        <span class="atag">Beste reistijd · mei</span>
         <h2>Waar naartoe in mei zonder massatoerisme</h2>
-        <p>Puglia, de Alentejo-kust, Slovenië en Noord-Griekenland. Vier bestemmingen die in mei specifiek goed werken, met concrete redenen en één aandachtspunt per bestemming.</p>
+        <p>Puglia, de Alentejo-kust, Slovenië en Noord-Griekenland. Vier bestemmingen die in mei specifiek goed werken, met concrete temperaturen en één aandachtspunt per bestemming.</p>
         <span class="alink">Lees artikel →</span>
       </a>
 
-      <a href="zonvakantie-met-kinderen.html" class="acard">
-        <span class="atag">Gezin · jonge kinderen</span>
-        <h2>Zonvakantie met kinderen onder de vier: waar de reistijd het probleem is</h2>
-        <p>Bij kinderen onder de vier is de acceptabele vliegtijd de belangrijkste variabele. Belangrijker dan de bestemming, en belangrijker dan de prijs.</p>
+      <a href="zonvakantie-met-kinderen.html" class="acard"
+         data-category="reizen-met-kinderen"
+         data-track="related_article_click" data-label="zonvakantie-met-kinderen">
+        <span class="atag">Reizen met kinderen</span>
+        <h2>Zonvakantie met een peuter: waarom reistijd de beslissende variabele is</h2>
+        <p>Bij kinderen onder de vier is de acceptabele vliegtijd belangrijker dan de bestemming zelf. Wat twee versus vier uur vliegen in de praktijk betekent.</p>
         <span class="alink">Lees artikel →</span>
       </a>
 
-      <a href="reisadvies-ai.html" class="acard">
-        <span class="atag">AI en reizen</span>
-        <h2>Reisadvies van AI: waar het misgaat, en wat je altijd zelf moet checken</h2>
-        <p>Een groot deel van de Nederlanders gebruikt AI bij het plannen van een reis. Een aanzienlijk deel krijgt onjuiste informatie. Dit is waarom dat gebeurt, en hoe je het recht trekt.</p>
+      <a href="reisadvies-ai.html" class="acard"
+         data-category="reisadvies-ai"
+         data-track="related_article_click" data-label="reisadvies-ai">
+        <span class="atag">Reisadvies &amp; AI</span>
+        <h2>AI reisadvies: wat klopt er niet, en wat controleer je altijd zelf?</h2>
+        <p>AI-chatbots worden veel gebruikt bij het plannen van een reis. Een deel van die informatie klopt niet. Dit is waarom dat structureel zo werkt en wat je altijd bij de primaire bron controleert.</p>
         <span class="alink">Lees artikel →</span>
       </a>
 
@@ -167,11 +213,12 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
   <div class="wrap">
     <div class="dark cta-in">
       <div>
-        <h2>Klaar om het te <span>proberen</span>?</h2>
-        <p>Een paar vragen, ruim een minuut, drie echte opties.</p>
+        <h2>Wil je weten welke bestemming bij <span>jouw situatie</span> past?</h2>
+        <p>Klimaat, drukte en reistijd worden allemaal meegewogen. Geen inspiratie, maar een berekende match.</p>
       </div>
       <div>
-        <a href="../index.html#tool" class="btn">Start jouw match →</a>
+        <a href="../index.html#tool" class="btn"
+           data-track="match_start" data-label="artikelen-overzicht-cta">Start jouw match →</a>
       </div>
     </div>
   </div>
@@ -183,15 +230,25 @@ footer{background:var(--nacht);color:#EEF2F6;padding:52px 0 26px}
       <div>
         <a href="../index.html" class="flogo"><img src="../TripPick_logo.svg" alt="TripPick.eu"></a>
         <p>Onafhankelijk platform voor het kiezen van een reisbestemming. Niet verbonden aan één reisorganisatie.</p>
-        <div class="micro" style="margin-top:14px"><span class="techtag"><i></i>Aangedreven door Navago</span></div>
+        <div style="margin-top:14px"><span class="techtag"><i></i>Aangedreven door Navago</span></div>
       </div>
       <div class="fcol"><span class="mono">Platform</span><a href="../index.html#tool">Keuzehulp</a><a href="../hoe-het-werkt.html">Hoe het werkt</a><a href="../bestemmingen.html">Bestemmingen</a></div>
       <div class="fcol"><span class="mono">Zakelijk</span><a href="../zakelijk.html">Voor reisorganisaties</a><a href="../zakelijk.html#contact">Demo aanvragen</a><a href="../index.html#technologie">Over Navago</a></div>
-      <div class="fcol"><span class="mono">Informatie</span><a href="../hoe-het-werkt.html">Hoe we werken</a><a href="../contact.html#over">Over ons</a><a href="../privacy.html">Privacy en cookies</a><a href="../contact.html">Contact</a></div>
+      <div class="fcol"><span class="mono">Informatie</span><a href="index.html">Artikelen</a><a href="../contact.html#over">Over ons</a><a href="../privacy.html">Privacy en cookies</a><a href="../contact.html">Contact</a></div>
     </div>
     <div class="fbot mono"><span>TripPick · onderdeel van OnlineKoers · KvK 75082888</span><span>trippick.eu</span></div>
   </div>
 </footer>
 
+<script>
+!function(){
+  function evt(n,d){d=d||{};if(typeof gtag==='function')gtag('event',n,d);if(window.dataLayer)window.dataLayer.push(Object.assign({event:n},d));}
+  evt('article_view',{page_type:'collection',page_path:'/artikelen/'});
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-track]');
+    if(el) evt(el.dataset.track,{label:el.dataset.label||''});
+  });
+}();
+</script>
 </body>
 </html>
