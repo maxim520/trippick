@@ -1,0 +1,16 @@
+{
+  "name": "trippick-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.14.0",
+  "scripts": {
+    "dev": "pnpm --filter trippick-web dev",
+    "build": "pnpm --filter navago-widget build && pnpm --filter trippick-web build",
+    "typecheck": "pnpm -r typecheck",
+    "ingest:fetch":    "pnpm --filter ingest-scripts fetch",
+    "ingest:parse":    "pnpm --filter ingest-scripts parse",
+    "ingest:resolve":  "pnpm --filter ingest-scripts resolve",
+    "ingest:validate": "pnpm --filter ingest-scripts validate",
+    "ingest:publish":  "pnpm --filter ingest-scripts publish",
+    "ingest:run":      "pnpm --filter ingest-scripts run-all"
+  }
+}

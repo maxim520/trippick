@@ -1,0 +1,26 @@
+{
+  "name": "ingest-scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch":    "tsx lib/runner.ts fetch",
+    "parse":    "tsx lib/runner.ts parse",
+    "resolve":  "tsx lib/runner.ts resolve",
+    "validate": "tsx lib/runner.ts validate",
+    "publish":  "tsx lib/runner.ts publish",
+    "run-all":  "tsx lib/runner.ts all",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "fast-xml-parser": "^4.5.0",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.7.5"
+  }
+}
