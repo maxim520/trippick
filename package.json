@@ -11,6 +11,8 @@
     "ingest:resolve":  "pnpm --filter ingest-scripts resolve",
     "ingest:validate": "pnpm --filter ingest-scripts validate",
     "ingest:publish":  "pnpm --filter ingest-scripts publish",
-    "ingest:run":      "pnpm --filter ingest-scripts run-all"
+    "ingest:run":             "pnpm --filter ingest-scripts run-all",
+    "ingest:draft-destinations":   "pnpm --filter ingest-scripts draft-destinations",
+    "ingest:promote-destinations": "pnpm --filter ingest-scripts promote-destinations"
   }
 }

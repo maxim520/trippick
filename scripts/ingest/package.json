@@ -10,6 +10,8 @@
     "validate": "tsx lib/runner.ts validate",
     "publish":  "tsx lib/runner.ts publish",
     "run-all":  "tsx lib/runner.ts all",
+    "draft-destinations": "tsx generate-destination-drafts.ts",
+    "promote-destinations": "tsx promote-destination-drafts.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
