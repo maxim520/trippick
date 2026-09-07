@@ -266,9 +266,9 @@ as $$
       case
         when array_length(p_transport, 1) = 0 then 8  -- no preference → neutral
         -- if offer has explicit transport_type, match against it
-        when bo.offer_transport is not null and
-             lower(bo.offer_transport) = any(p_transport) then 16
-        when bo.offer_transport is not null then 0
+        when bo.transport_type is not null and
+             lower(bo.transport_type) = any(p_transport) then 16
+        when bo.transport_type is not null then 0
         -- fallback: match against destinations.transport register
         when exists (
           select 1 from unnest(p_transport) ut
