@@ -10,6 +10,7 @@
 import 'dotenv/config';
 import { fetch }    from '../01-fetch.js';
 import { parse }    from '../02-parse.js';
+import { parseTradeTrackerProperties } from '../parse-tradetracker-properties.js';
 import { resolve }  from '../03-resolve.js';
 import { validate } from '../04-validate.js';
 import { publish }  from '../05-publish.js';
@@ -19,7 +20,22 @@ const ALL_SOURCES = [
   'daisycon-dutchflyguys',
   'tradetracker-bungalownet',
   'daisycon-solmar',
+  'tradetracker-corendon',
 ];
+
+// Route a source to the correct parser based on its XML format.
+// Flat-field sources use 02-parse.ts; <properties><property name> sources use
+// parse-tradetracker-properties.ts. Add new entries here when onboarding a feed
+// with a different format rather than modifying existing parsers.
+const PROPERTIES_FORMAT_SOURCES = new Set(['tradetracker-corendon']);
+
+async function dispatchParse(sourceId: string, batchId?: number): Promise<void> {
+  if (PROPERTIES_FORMAT_SOURCES.has(sourceId)) {
+    await parseTradeTrackerProperties(sourceId, batchId);
+  } else {
+    await parse(sourceId, batchId);
+  }
+}
 
 const [stage, targetSource] = process.argv.slice(2);
 const sources = targetSource ? [targetSource] : ALL_SOURCES;
@@ -28,7 +44,7 @@ async function runAll(sourceId: string): Promise<void> {
   console.log(`\n===== ${sourceId} =====`);
   const batchId = await fetch(sourceId);
   if (batchId === null) { console.log('No change, skipping remaining stages.'); return; }
-  await parse(sourceId, batchId);
+  await dispatchParse(sourceId, batchId);
   await resolve(sourceId, batchId);
   await publish(sourceId, batchId);  // publish calls validate internally
 }
@@ -37,7 +53,7 @@ async function runAll(sourceId: string): Promise<void> {
   for (const src of sources) {
     switch (stage) {
       case 'fetch':    await fetch(src); break;
-      case 'parse':    await parse(src); break;
+      case 'parse':    await dispatchParse(src); break;
       case 'resolve':  await resolve(src); break;
       case 'validate': await validate(src); break;
       case 'publish':  await publish(src); break;

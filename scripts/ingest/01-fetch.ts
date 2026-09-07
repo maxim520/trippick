@@ -16,6 +16,7 @@ const SOURCE_URL_ENV: Record<string, string> = {
   'daisycon-dutchflyguys':    'FEED_URL_DAISYCON_DUTCHFLYGUYS',
   'tradetracker-bungalownet': 'FEED_URL_TRADETRACKER_BUNGALOWNET',
   'daisycon-solmar':          'FEED_URL_DAISYCON_SOLMAR',
+  'tradetracker-corendon':    'FEED_URL_TRADETRACKER_CORENDON',
 };
 
 export async function fetch(sourceId: string): Promise<number | null> {
