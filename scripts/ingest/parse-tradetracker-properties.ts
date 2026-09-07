@@ -25,6 +25,7 @@
  * Usage: tsx parse-tradetracker-properties.ts <source_id> [batch_id]
  */
 import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
 import { XMLParser } from 'fast-xml-parser';
 import { readFileSync } from 'node:fs';
 import { getDb } from './lib/db.js';
@@ -246,11 +247,13 @@ export async function parseTradeTrackerProperties(sourceId: string, batchIdOverr
   reportUnknownCountries();
 }
 
-// CLI
-const [sourceId, batchIdStr] = process.argv.slice(2);
-if (!sourceId) {
-  console.error('Usage: tsx parse-tradetracker-properties.ts <source_id> [batch_id]');
-  process.exit(1);
+// CLI — guard prevents this from running when imported by runner.ts
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const [sourceId, batchIdStr] = process.argv.slice(2);
+  if (!sourceId) {
+    console.error('Usage: tsx parse-tradetracker-properties.ts <source_id> [batch_id]');
+    process.exit(1);
+  }
+  parseTradeTrackerProperties(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
+    .catch(e => { console.error(e); process.exit(1); });
 }
-parseTradeTrackerProperties(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
-  .catch(e => { console.error(e); process.exit(1); });

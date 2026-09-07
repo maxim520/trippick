@@ -18,6 +18,7 @@
  * Usage: tsx 04-validate.ts <source_id> [batch_id]
  */
 import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
 import { getDb } from './lib/db.js';
 
 const PRICE_MIN  = parseInt(process.env['PRICE_MIN_CENTS']  ?? '5000',    10);
@@ -131,9 +132,11 @@ export async function validate(sourceId: string, batchIdOverride?: number): Prom
   return { batchId, validIds, invalid };
 }
 
-// CLI
-const [sourceId, batchIdStr] = process.argv.slice(2);
-if (!sourceId) { console.error('Usage: tsx 04-validate.ts <source_id> [batch_id]'); process.exit(1); }
-validate(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
-  .then(r => console.log(`[validate] done: ${r.validIds.length} valid offers`))
-  .catch(e => { console.error(e); process.exit(1); });
+// CLI — guard prevents this from running when imported by runner.ts
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const [sourceId, batchIdStr] = process.argv.slice(2);
+  if (!sourceId) { console.error('Usage: tsx 04-validate.ts <source_id> [batch_id]'); process.exit(1); }
+  validate(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
+    .then(r => console.log(`[validate] done: ${r.validIds.length} valid offers`))
+    .catch(e => { console.error(e); process.exit(1); });
+}

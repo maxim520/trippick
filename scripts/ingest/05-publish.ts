@@ -8,6 +8,7 @@
  * Usage: tsx 05-publish.ts <source_id> [batch_id]
  */
 import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
 import { getDb } from './lib/db.js';
 import { validate } from './04-validate.js';
 
@@ -71,8 +72,10 @@ export async function publish(sourceId: string, batchIdOverride?: number): Promi
   console.log(`\n[publish] ${sourceId}: done — ${published} offers live`);
 }
 
-// CLI
-const [sourceId, batchIdStr] = process.argv.slice(2);
-if (!sourceId) { console.error('Usage: tsx 05-publish.ts <source_id> [batch_id]'); process.exit(1); }
-publish(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
-  .catch(e => { console.error(e); process.exit(1); });
+// CLI — guard prevents this from running when imported by runner.ts
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const [sourceId, batchIdStr] = process.argv.slice(2);
+  if (!sourceId) { console.error('Usage: tsx 05-publish.ts <source_id> [batch_id]'); process.exit(1); }
+  publish(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
+    .catch(e => { console.error(e); process.exit(1); });
+}

@@ -8,6 +8,7 @@
  * Usage: tsx 01-fetch.ts <source_id>
  */
 import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
 import { getDb } from './lib/db.js';
 import { sha256, saveFeedFile } from './lib/utils.js';
 
@@ -66,9 +67,11 @@ export async function fetch(sourceId: string): Promise<number | null> {
   return row.id as number;
 }
 
-// CLI entrypoint
-const sourceId = process.argv[2];
-if (!sourceId) { console.error('Usage: tsx 01-fetch.ts <source_id>'); process.exit(1); }
-fetch(sourceId)
-  .then(id => { if (id === null) process.exit(0); console.log(`[fetch] done, batch_id=${id}`); })
-  .catch(e => { console.error(e); process.exit(1); });
+// CLI entrypoint — guard prevents this from running when imported by runner.ts
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const sourceId = process.argv[2];
+  if (!sourceId) { console.error('Usage: tsx 01-fetch.ts <source_id>'); process.exit(1); }
+  fetch(sourceId)
+    .then(id => { if (id === null) process.exit(0); console.log(`[fetch] done, batch_id=${id}`); })
+    .catch(e => { console.error(e); process.exit(1); });
+}

@@ -12,6 +12,7 @@
  * Usage: tsx 03-resolve.ts <source_id> [batch_id]
  */
 import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
 import { getDb } from './lib/db.js';
 
 const FUZZY_THRESHOLD = 0.55;
@@ -137,8 +138,10 @@ export async function resolve(sourceId: string, batchIdOverride?: number): Promi
   console.log(`[resolve] done: ${resolved} resolved, ${unresolved} unresolved`);
 }
 
-// CLI
-const [sourceId, batchIdStr] = process.argv.slice(2);
-if (!sourceId) { console.error('Usage: tsx 03-resolve.ts <source_id> [batch_id]'); process.exit(1); }
-resolve(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
-  .catch(e => { console.error(e); process.exit(1); });
+// CLI — guard prevents this from running when imported by runner.ts
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const [sourceId, batchIdStr] = process.argv.slice(2);
+  if (!sourceId) { console.error('Usage: tsx 03-resolve.ts <source_id> [batch_id]'); process.exit(1); }
+  resolve(sourceId, batchIdStr ? parseInt(batchIdStr, 10) : undefined)
+    .catch(e => { console.error(e); process.exit(1); });
+}
