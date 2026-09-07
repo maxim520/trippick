@@ -204,18 +204,46 @@ async function main() {
 
   console.log(`Found ${freq.size} unique destination strings. Taking top ${topN.length}.`);
 
+  // ── 1b. Pull the most common destination_country per string from staging_offers ──
+  // This fills suggested_country for destinations not in the knowledge table.
+  let countryQuery = db
+    .from('staging_offers')
+    .select('destination_str, destination_country')
+    .not('destination_str', 'is', null)
+    .not('destination_country', 'is', null);
+  if (BATCH_ARG) countryQuery = countryQuery.eq('batch_id', BATCH_ARG);
+  const { data: countryRows } = await countryQuery;
+
+  // Most frequent ISO-2 per destination_str
+  const countryByStr = new Map<string, Map<string, number>>();
+  for (const r of (countryRows ?? []) as { destination_str: string; destination_country: string }[]) {
+    const str = r.destination_str?.trim();
+    const iso = r.destination_country?.trim();
+    if (!str || !iso) continue;
+    const m = countryByStr.get(str) ?? new Map<string, number>();
+    m.set(iso, (m.get(iso) ?? 0) + 1);
+    countryByStr.set(str, m);
+  }
+  const dominantCountry = (str: string): string => {
+    const m = countryByStr.get(str);
+    if (!m) return 'UNKNOWN';
+    return [...m.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'UNKNOWN';
+  };
+
   // ── 2. Build draft rows ─────────────────────────────────────────────────
   const drafts: DraftRow[] = topN.map(([str, count]) => {
     const known = matchKnowledge(str);
     const base  = known ?? genericProposal(str);
     const id    = known?.id ?? slugify(str.split(/[-–,]/)[0]!.trim());
     const name  = known?.name ?? str.split(/[-–,]/)[0]!.trim();
+    // For unknown destinations: use the country from staging_offers instead of 'UNKNOWN'
+    const country = known ? known.country : dominantCountry(str);
 
     return {
       destination_str:     str,
       suggested_id:        id,
       suggested_name:      name,
-      suggested_country:   base.country,
+      suggested_country:   country,
       suggested_months:    base.months,
       suggested_audiences: base.audiences,
       suggested_motives:   base.motives,
