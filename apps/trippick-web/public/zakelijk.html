@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TripPick voor reisorganisaties · aangedreven door Navago</title>
+<meta name="description" content="Vang bezoekers op die nog geen bestemming hebben. De TripPick-keuzehulp in uw eigen huisstijl, op uw eigen site, met uitsluitend uw eigen aanbod.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nacht:#0D1B2A; --teal:#17BEBB; --blauw:#7FD3F7; --grijs:#F2F4F7;
+  --kaart:#FFFFFF; --tekst:#0D1B2A; --sub:#5C6B7A; --rand:#E1E5EA;
+  --tekstL:#EEF2F6; --subL:rgba(238,242,246,.62); --randD:rgba(238,242,246,.13);
+  --r1:8px; --r2:12px; --r3:18px;
+  --sh1:0 1px 2px rgba(0,0,0,.14), 0 4px 14px -8px rgba(0,0,0,.30);
+  --sh2:0 2px 6px rgba(0,0,0,.16), 0 20px 46px -18px rgba(0,0,0,.42);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--nacht);color:var(--tekstL);font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(900px 560px at 82% 0%,rgba(23,190,187,.09),transparent 60%),
+             radial-gradient(760px 520px at 4% 30%,rgba(127,211,247,.07),transparent 62%)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px;position:relative;z-index:1}
+@media(max-width:560px){.wrap{padding:0 16px}}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+h1,h2,h3{font-weight:700;line-height:1.16;letter-spacing:-.01em}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+section{scroll-margin-top:96px;position:relative;z-index:1}
+.eyebrow{color:var(--teal);display:block;margin-bottom:13px;font-weight:600}
+.sec-head{max-width:60ch;margin-bottom:34px}
+.sec-head h2{font-size:clamp(1.75rem,2.8vw,2.3rem);margin-bottom:11px;color:var(--tekstL)}
+.sec-head p{color:var(--subL);font-size:16px;font-weight:400}
+
+.btn{background:var(--teal);color:#07211F;padding:12px 22px;border-radius:var(--r1);font-weight:700;font-size:14.5px;
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:.16s}
+.btn:hover{background:#3DD3D0}
+.btn-g{background:rgba(255,255,255,.06);color:var(--tekstL);border:1px solid var(--randD)}
+.btn-g:hover{border-color:rgba(238,242,246,.35);background:rgba(255,255,255,.09)}
+.btn-full{width:100%;justify-content:center}
+
+/* nav */
+.navwrap{padding:0 26px;margin-top:14px;position:relative;z-index:20}
+.nav{max-width:1180px;margin:0 auto;background:rgba(13,27,42,.66);backdrop-filter:blur(16px);border:1px solid var(--randD);border-radius:var(--r2);
+  box-shadow:var(--sh1);display:flex;align-items:center;justify-content:space-between;padding:9px 9px 9px 14px}
+.logo-chip{background:#fff;border-radius:8px;padding:6px 11px;display:flex;align-items:center}
+.logo-chip img{height:22px;display:block}
+.logo-sep{width:1px;height:20px;background:var(--randD);margin:0 3px}
+.logo-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--subL);letter-spacing:.05em}
+.logo-row{display:flex;align-items:center;gap:11px}
+nav{display:flex;gap:19px;align-items:center}
+nav a{text-decoration:none;color:var(--subL);font-size:14px;font-weight:500;transition:.15s}
+nav a:hover{color:var(--tekstL)}
+.cons-link{display:flex;align-items:center;gap:6px;color:var(--nacht)!important;font-weight:600!important;
+  padding:7px 13px;border-radius:99px;background:var(--grijs);font-size:13.5px!important}
+.cons-link:hover{background:#fff}
+@media(max-width:960px){nav a:not(.btn):not(.cons-link){display:none}.navwrap{padding:0 16px}}
+@media(max-width:640px){.cons-link span{display:none}.logo-tag{display:none}.logo-sep{display:none}}
+
+/* hero */
+.hero{padding:52px 0 66px}
+.hg{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:48px;align-items:center}
+@media(max-width:1000px){.hg{grid-template-columns:1fr;gap:36px}}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid var(--randD);
+  padding:6px 13px;border-radius:99px;color:var(--subL);margin-bottom:20px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex:none}
+.hero h1{font-size:clamp(2.1rem,3.9vw,3.15rem);margin-bottom:16px;color:var(--tekstL)}
+.hero h1 span{color:var(--teal)}
+.lede{font-size:16.5px;line-height:1.58;color:var(--subL);max-width:42ch;margin-bottom:26px;font-weight:400}
+.cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.tlink{font-weight:600;font-size:14.5px;text-decoration:none;border-bottom:1.5px solid var(--randD);padding-bottom:2px;color:var(--tekstL)}
+.tlink:hover{border-color:var(--tekstL)}
+
+/* demo browser - light "product screenshot" floating on dark canvas */
+.skinrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.skinrow .mono{color:var(--subL)}
+.skin{border:1px solid var(--randD);background:rgba(255,255,255,.05);border-radius:99px;padding:6px 13px;font-size:13px;font-weight:600;color:var(--tekstL);
+  display:flex;align-items:center;gap:7px;transition:.14s}
+.skin.on{border-color:var(--teal);background:rgba(23,190,187,.12)}
+.swatch{width:10px;height:10px;border-radius:50%;flex:none}
+.browser{background:var(--kaart);border-radius:var(--r3);box-shadow:var(--sh2);overflow:hidden}
+.bbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--grijs);border-bottom:1px solid var(--rand)}
+.bdots{display:flex;gap:4px}.bdots i{width:8px;height:8px;border-radius:50%;background:#D5DAE0}
+.burl{flex:1;background:var(--kaart);border:1px solid var(--rand);border-radius:99px;padding:4px 12px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--sub);text-align:center}
+
+#w{--b:#1B4D7A;--bl:#EEF3F8;--bt:#12242F;--bm:#5E7183;--bb:#DCE4EC;--br:12px;padding:20px;background:var(--kaart)}
+.wtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
+.wbrand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px;color:var(--bt)}
+.wmark{width:22px;height:22px;border-radius:6px;background:var(--b);flex:none}
+.wsegs{display:flex;gap:4px}
+.wsegs i{width:18px;height:3.5px;border-radius:99px;background:var(--bb)}
+.wsegs i.on{background:var(--b)}
+#w .q{font-size:19px;font-weight:700;color:var(--bt);margin-bottom:3px}
+#w .qs{font-size:12.5px;color:var(--bm);margin-bottom:14px}
+#w .os{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:560px){#w .os{grid-template-columns:1fr}}
+#w .o{border:1px solid var(--bb);border-radius:var(--br);padding:11px 13px;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:9px;background:var(--kaart);transition:.14s}
+#w .o:hover{border-color:var(--b)}
+#w .o.on{border-color:var(--b);background:var(--bl)}
+#w .o strong{display:block;font-weight:600;font-size:13.5px;color:var(--bt)}
+#w .o small{font-size:11px;color:var(--bm);font-weight:400}
+#w .tk{width:16px;height:16px;border:1.5px solid var(--bb);border-radius:50%;flex:none;position:relative}
+#w .o.on .tk{background:var(--b);border-color:var(--b)}
+#w .o.on .tk::after{content:"";position:absolute;left:5.5px;top:2.5px;width:3.5px;height:6.5px;border:solid #fff;border-width:0 1.6px 1.6px 0;transform:rotate(42deg)}
+#w .wf{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px}
+#w .wb{color:var(--bm);font-size:13px;font-weight:600;padding:7px 12px;border-radius:99px}
+#w .wb:hover{background:var(--bl)}
+#w .wgo{background:var(--b);color:#fff;padding:10px 18px;border-radius:99px;font-weight:600;font-size:13.5px}
+#w .wgo[disabled]{opacity:.3;pointer-events:none}
+#w .rc{border:1px solid var(--bb);border-radius:var(--br);padding:12px;margin-bottom:7px;animation:rise .4s backwards}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+#w .rc h4{font-size:14.5px;font-weight:700;color:var(--bt)}
+#w .rc .sub{font-size:11.5px;color:var(--bm);margin-top:2px}
+#w .rc .tg{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+#w .rc .tg span{font-size:10.5px;background:var(--bl);color:var(--b);padding:3px 8px;border-radius:99px;font-weight:600}
+#w .rc .bt{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:9px;border-top:1px solid var(--bb)}
+#w .rc .pr{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--bm)}
+#w .rc .pr b{font-size:13.5px;color:var(--bt)}
+#w .rc a{font-size:12.5px;font-weight:700;color:var(--b);text-decoration:none}
+#w .mt{font-size:11.5px;color:var(--bm);background:var(--bl);border-radius:9px;padding:8px 11px}
+#w .rc{display:flex;gap:10px;align-items:stretch}
+#w .rphoto{width:58px;border-radius:8px;flex:none;background-size:cover;background-position:center}
+#w .rc .rbody{flex:1;min-width:0}
+
+/* autoplay + live proof */
+.demowrap{position:relative}
+.playbadge{position:absolute;top:-13px;left:20px;z-index:5;background:var(--nacht);border:1px solid var(--teal);
+  color:var(--tekstL);font-size:11.5px;font-weight:600;padding:6px 13px;border-radius:99px;display:flex;align-items:center;gap:7px;
+  box-shadow:0 6px 18px -6px rgba(0,0,0,.4);opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
+.playbadge.show{opacity:1;transform:translateY(0)}
+.playbadge i{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse2 1.3s infinite}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+.toast{position:absolute;right:-14px;bottom:-18px;z-index:6;background:var(--kaart);border-radius:12px;
+  padding:13px 16px;box-shadow:var(--sh2);display:flex;align-items:center;gap:11px;max-width:250px;
+  opacity:0;transform:translateY(10px) scale(.96);transition:opacity .3s,transform .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0) scale(1)}
+.toast .tick{width:26px;height:26px;border-radius:50%;background:var(--teal);display:grid;place-items:center;flex:none}
+.toast .tick svg{width:13px;height:13px;color:#07211F}
+.toast b{display:block;font-size:12.5px;color:var(--nacht);font-weight:700}
+.toast span{font-size:11px;color:var(--sub)}
+@media(max-width:640px){.toast{right:6px;bottom:-14px;max-width:210px}}
+
+/* stat strip - light cells floating on dark canvas */
+.stats{padding:0 0 70px}
+.srow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:760px){.srow{grid-template-columns:1fr 1fr}}
+.scell{background:var(--kaart);border-radius:var(--r2);padding:20px 20px;box-shadow:var(--sh1)}
+.scell b{font-size:1.85rem;font-weight:700;display:block;letter-spacing:-.02em;color:var(--nacht)}
+.scell span{font-size:12.5px;color:var(--sub);line-height:1.4;display:block;margin-top:4px}
+
+/* two-column layout directly on dark canvas (no boxed wrapper) */
+.two{display:grid;grid-template-columns:1fr 1.1fr;gap:44px;align-items:center;padding:0 0 78px}
+@media(max-width:900px){.two{grid-template-columns:1fr;gap:28px}}
+.two h2{font-size:clamp(1.6rem,2.6vw,2.1rem);color:var(--tekstL)}
+.two h2 span{color:var(--teal)}
+.two>div>p{color:var(--subL);margin:13px 0 22px;max-width:44ch;font-size:15px;font-weight:400}
+.ilist{display:grid;gap:9px}
+.ilist div{background:rgba(255,255,255,.045);border:1px solid var(--randD);border-radius:var(--r2);padding:15px 17px}
+.ilist b{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--teal);letter-spacing:.06em;display:block;margin-bottom:6px}
+.ilist strong{font-weight:600;font-size:14.5px;display:block;margin-bottom:3px;color:var(--tekstL)}
+.ilist span{font-size:13px;color:var(--subL);line-height:1.4;font-weight:400}
+
+/* navago callout panel */
+.navpanel{background:rgba(255,255,255,.045);border:1px solid var(--randD);border-radius:var(--r2);
+  padding:22px 24px;margin-bottom:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.navpanel .chip{background:#fff;border-radius:10px;padding:9px 15px;flex:none}
+.navpanel .chip img{height:34px;display:block}
+.navpanel p{flex:1;min-width:220px;color:var(--subL);font-size:13.5px;margin:0;max-width:64ch}
+
+/* werking cards - light, floating */
+.werking{padding:78px 0}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.cards3{grid-template-columns:1fr}}
+.c{background:var(--kaart);border-radius:var(--r2);padding:22px;box-shadow:var(--sh1)}
+.cnum{width:30px;height:30px;border-radius:8px;background:var(--grijs);display:grid;place-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal);margin-bottom:14px}
+.c h3{font-size:16.5px;margin-bottom:7px;color:var(--nacht)}
+.c p{font-size:13.5px;color:var(--sub);line-height:1.5;font-weight:400}
+.code{background:rgba(255,255,255,.05);border:1px solid var(--randD);border-radius:var(--r2);padding:16px 18px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;color:#BFD8CE;overflow-x:auto;margin-top:16px;line-height:1.7}
+.code .t{color:#7FB8A4}.code .a{color:#7FD3F7}.code .s{color:#E9F0EC}
+.werking>.wrap>p.hint{font-size:13px;color:var(--subL);margin-top:11px}
+
+/* pricing */
+.pricing{padding:0 0 78px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+@media(max-width:900px){.tiers{grid-template-columns:1fr}}
+.tier{background:var(--kaart);border-radius:var(--r3);padding:26px;box-shadow:var(--sh1)}
+.tier.hl{box-shadow:var(--sh2);position:relative;outline:2px solid var(--teal);outline-offset:-2px}
+.tier.hl::after{content:"Meest gekozen";position:absolute;top:-10px;left:26px;background:var(--nacht);color:#fff;
+  font-size:10.5px;font-weight:600;padding:4px 11px;border-radius:99px;letter-spacing:.03em}
+.tier h3{font-size:17.5px;margin-bottom:5px;color:var(--nacht)}
+.tier .pd{font-size:13px;color:var(--sub);margin-bottom:16px;min-height:36px}
+.pr{display:flex;align-items:baseline;gap:5px;margin-bottom:18px}
+.pr b{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--nacht)}
+.pr span{color:var(--sub);font-size:13px}
+.tier ul{list-style:none;display:grid;gap:9px;margin-bottom:20px}
+.tier li{display:flex;gap:8px;font-size:13.5px;color:var(--sub);align-items:flex-start}
+.tier li svg{width:14px;height:14px;color:var(--teal);flex:none;margin-top:4px}
+.pilot{background:var(--kaart);border-radius:var(--r2);padding:17px 20px;margin-top:16px;font-size:13.5px;color:var(--sub);box-shadow:var(--sh1)}
+.pilot b{color:var(--nacht)}
+
+/* faq */
+.faq{padding:0 0 78px}
+.faqs{display:grid;gap:8px}
+details{background:var(--kaart);border-radius:var(--r2)}
+details[open]{box-shadow:var(--sh1)}
+summary{padding:16px 19px;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;font-weight:600;color:var(--nacht)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--teal);font-size:17px;flex:none;font-weight:700}
+details[open] summary::after{content:"–"}
+details p{padding:0 19px 18px;color:var(--sub);max-width:74ch;font-size:14px;font-weight:400}
+
+/* contact */
+.contact{padding:0 0 78px}
+.frm{display:grid;gap:9px;max-width:420px}
+.frm input,.frm select{background:rgba(255,255,255,.06);border:1px solid var(--randD);border-radius:10px;
+  padding:12px 14px;color:var(--tekstL);font-family:inherit;font-size:14.5px;width:100%}
+.frm input::placeholder{color:rgba(238,242,246,.38)}
+.frm select option{color:#0D1B2A}
+.contact .micro{color:var(--subL);font-size:13px;display:flex;gap:10px;margin-top:10px}
+
+/* footer */
+footer{background:var(--nacht);color:var(--tekstL);padding:48px 0 26px;border-top:1px solid var(--randD)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:28px;border-bottom:1px solid var(--randD)}
+@media(max-width:820px){.fgrid{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+.flogo{display:inline-flex;background:#fff;border-radius:9px;padding:7px 11px}
+.flogo img{height:20px;display:block}
+.fgrid>div:first-child p{opacity:.55;font-size:13px;max-width:36ch;margin-top:13px;font-weight:400}
+.fcol .mono{opacity:.42;margin-bottom:11px;display:block}
+.fcol a{display:block;text-decoration:none;opacity:.68;font-size:13.5px;padding:3px 0;font-weight:500}
+.fcol a:hover{opacity:1;color:var(--teal)}
+.fbot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:17px;opacity:.4;font-size:11.5px}
+</style>
+</head>
+<body>
+
+<div class="navwrap">
+  <div class="nav">
+    <div class="logo-row">
+      <a href="index.html" class="logo-chip"><img src="TripPick_logo.svg" alt="TripPick.eu"></a>
+      <div class="logo-sep"></div>
+      <span class="logo-tag">VOOR REISORGANISATIES</span>
+    </div>
+    <nav>
+      <a href="#demo">Demo</a>
+      <a href="#werking">Hoe het werkt</a>
+      <a href="#prijzen">Prijzen</a>
+      <a href="index.html" class="cons-link">
+        <svg viewBox="0 0 20 20" fill="none" style="width:14px;height:14px"><path d="M17 10 10 3 3 10M5 8.5V17h10V8.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span>Naar TripPick.eu</span>
+      </a>
+      <a href="#contact" class="btn">Plan een demo</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hg">
+    <div>
+      <span class="pill mono"><span class="dot"></span>Pilotprogramma najaar 2026 · 5 plekken</span>
+      <h1>Uw bezoeker weet nog niet waarheen. En <span>vertrekt</span>.</h1>
+      <p class="lede">Een deel van uw verkeer komt binnen zonder bestemming in gedachten, vult uw filters niet in en gaat weer weg. TripPick vangt die groep op met vijf vragen, en toont uitsluitend uw eigen reizen.</p>
+      <div class="cta-row">
+        <a href="#contact" class="btn">Plan een demo →</a>
+        <a href="#demo" class="tlink">Probeer het hiernaast</a>
+      </div>
+    </div>
+
+    <div id="demo" class="demowrap">
+      <div class="playbadge" id="playbadge"><i></i>Automatische preview</div>
+      <div class="skinrow">
+        <span class="mono">Huisstijl</span>
+        <button class="skin on" data-s="0"><i class="swatch" style="background:#1B4D7A"></i>Zonwaarts</button>
+        <button class="skin" data-s="1"><i class="swatch" style="background:#B0442C"></i>Terra Reizen</button>
+        <button class="skin" data-s="2"><i class="swatch" style="background:#2E6B4F"></i>Groene Route</button>
+      </div>
+      <div class="browser">
+        <div class="bbar"><div class="bdots"><i></i><i></i><i></i></div><div class="burl" id="url">zonwaarts.nl/vakantie-kiezen</div></div>
+        <div id="w"></div>
+      </div>
+      <div class="toast" id="toast">
+        <div class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="m3 8.5 3.5 3.5L13 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><b>Lead vastgelegd</b><span>Direct zichtbaar in uw dashboard, met het volledige profiel.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <div class="srow">
+      <div class="scell"><b>40%</b><span>van de reizen begint zonder vaste bestemming</span></div>
+      <div class="scell"><b>0</b><span>concurrerend aanbod in uw eigen widget</span></div>
+      <div class="scell"><b>&lt;10</b><span>minuten installatietijd via één script-tag</span></div>
+      <div class="scell"><b>2–6</b><span>weken van kickoff tot live, afhankelijk van uw feed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEEM -->
+<section class="wrap two">
+  <div>
+    <span class="eyebrow mono">Het probleem</span>
+    <h2>U betaalt voor verkeer dat <span>niets kan invullen</span></h2>
+    <p>Uw zoekfilters gaan ervan uit dat de bezoeker weet wat hij wil. Een groeiend deel weet dat niet. Die groep scrolt, twijfelt en gaat terug naar Google, waar een chatbot inmiddels het antwoord geeft. Zonder uw aanbod erin.</p>
+  </div>
+  <div class="ilist">
+    <div><b>01</b><strong>Filters vragen om kennis die er niet is</strong><span>Bestemming, datum, sterren, afstand tot strand. Wie nog twijfelt over het land, komt daar niet doorheen.</span></div>
+    <div><b>02</b><strong>De oriëntatiefase verschuift naar AI</strong><span>Reizigers stellen hun eerste vraag steeds vaker aan een chatbot in plaats van aan een reissite. Daar staat uw voorraad niet in.</span></div>
+    <div><b>03</b><strong>U ziet niet wat men zocht</strong><span>Een bounce vertelt u niets. Een beantwoorde vragenset vertelt u precies welke vraag u niet kon bedienen.</span></div>
+  </div>
+</section>
+
+<!-- WERKING -->
+<section class="werking" id="werking">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow mono">Hoe het werkt</span>
+      <h2>Uw catalogus in, drie passende reizen uit</h2>
+      <p>TripPick draait op Navago, onze matchingtechnologie. Er wordt niets van buiten toegevoegd en er verschijnt nooit een concurrent in beeld.</p>
+    </div>
+    <div class="navpanel">
+      <div class="chip"><img src="Logo_Navago.png" alt="Navago"></div>
+      <p>De matchingtechnologie achter TripPick. Deterministische scoring op een geverifieerde catalogus, geen taalmodel dat bestemmingen verzint.</p>
+    </div>
+    <div class="cards3">
+      <div class="c"><div class="cnum">01</div><h3>Wij lezen uw aanbod in</h3><p>Via uw bestaande productfeed, XML of een API-koppeling. Bestemming, periode, prijs, foto en beschikbaarheid worden dagelijks ververst.</p></div>
+      <div class="c"><div class="cnum">02</div><h3>De bezoeker beantwoordt vijf vragen</h3><p>Periode, gezelschap, budget, vervoer en motief. Elk antwoord verkleint de zoekruimte zichtbaar, wat de afhaakkans per stap verlaagt.</p></div>
+      <div class="c"><div class="cnum">03</div><h3>Drie reizen met onderbouwing</h3><p>Uit uw catalogus, gescoord door Navago, met per resultaat de reden erbij. Doorklikken gaat rechtstreeks naar uw eigen boekingspagina.</p></div>
+    </div>
+    <div class="code">
+<span class="t">&lt;script</span> <span class="a">src</span>=<span class="s">"https://cdn.trippick.eu/navago.js"</span> <span class="a">data-key</span>=<span class="s">"tp_live_a1b2c3"</span><span class="t">&gt;&lt;/script&gt;</span>
+<span class="t">&lt;div</span> <span class="a">id</span>=<span class="s">"tp-widget"</span><span class="t">&gt;&lt;/div&gt;</span>
+    </div>
+    <p class="hint">Meer is het niet. Kleuren, lettertype en hoekradius nemen we over uit uw stylesheet of stellen we in het dashboard in.</p>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="wrap two">
+  <div>
+    <span class="eyebrow mono">Het dashboard</span>
+    <h2>Inzicht in de vraag die u <span>niet kon bedienen</span></h2>
+    <p>Elke sessie levert een gestructureerd profiel op. Daarmee ziet u niet alleen wat er geboekt is, maar ook waar bezoekers naar vroegen zonder dat u het had. Dat is inkoopinformatie, ook in het laagseizoen.</p>
+  </div>
+  <div class="ilist">
+    <div><b>01</b><strong>Vraagpatronen per week</strong><span>Welke combinaties van maand, budget en motief het vaakst voorkomen.</span></div>
+    <div><b>02</b><strong>Gemiste voorraad</strong><span>Sessies waarbij geen enkele reis boven de drempel scoorde, met de reden erbij.</span></div>
+    <div><b>03</b><strong>Afhaakpunten per vraag</strong><span>Waar bezoekers stoppen, zodat u de vragenset kunt bijstellen.</span></div>
+    <div><b>04</b><strong>Koppeling met uw systemen</strong><span>Leads naar uw CRM, gebeurtenissen naar GA4 en uw eigen datawarehouse.</span></div>
+  </div>
+</section>
+
+<!-- PRIJZEN -->
+<section class="pricing" id="prijzen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow mono">Prijzen</span>
+      <h2>Vaste prijs per maand, geen commissie</h2>
+      <p>U betaalt voor de module, niet per boeking. Alle tarieven exclusief btw, bij jaarafname.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <h3>Starter</h3>
+        <div class="pd">Voor één merk met beperkt verkeer</div>
+        <div class="pr"><b>€ 249</b><span>per maand</span></div>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Tot 3.000 sessies per maand</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Eén productfeed</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Kleuren en lettertype aanpasbaar</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Standaard dashboard</li>
+        </ul>
+        <a href="#contact" class="btn btn-g btn-full">Demo aanvragen</a>
+      </div>
+      <div class="tier hl">
+        <h3>Groei</h3>
+        <div class="pd">Voor organisaties met serieus zoekverkeer</div>
+        <div class="pr"><b>€ 549</b><span>per maand</span></div>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Tot 15.000 sessies per maand</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Volledige huisstijl en eigen vragenset</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>CRM- en GA4-koppeling</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>A/B-varianten en gemiste-voorraadrapport</li>
+        </ul>
+        <a href="#contact" class="btn btn-full">Demo aanvragen</a>
+      </div>
+      <div class="tier">
+        <h3>Enterprise</h3>
+        <div class="pd">Meerdere merken of landen</div>
+        <div class="pr"><b>Op maat</b></div>
+        <ul>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Onbeperkt volume</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Meerdere merken en talen</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>API-toegang en eigen scoringsregels</li>
+          <li><svg viewBox="0 0 16 16" fill="none"><path d="m3.5 8.5 3 3 6-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>SLA en vaste contactpersoon</li>
+        </ul>
+        <a href="#contact" class="btn btn-g btn-full">Neem contact op</a>
+      </div>
+    </div>
+    <div class="pilot"><b>Pilotprogramma najaar 2026.</b> Vijf organisaties gaan in november live tegen € 150 per maand voor het eerste jaar, in ruil voor wekelijkse feedback en het recht om de resultaten geanonimiseerd als casestudy te gebruiken. Eenmalige koppelingskosten vervallen bij een jaarcontract.</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow mono">Veelgestelde vragen</span>
+      <h2>Wat organisaties het eerst vragen</h2>
+    </div>
+    <div class="faqs">
+      <details open><summary>Verschijnt aanbod van andere partijen in onze module?</summary><p>Nee. TripPick draait uitsluitend op de catalogus die u aanlevert. Er wordt geen extern aanbod toegevoegd en er is geen doorverwijzing naar TripPick.eu of naar andere klanten. De bezoeker blijft op uw domein.</p></details>
+      <details><summary>Van wie zijn de gegevens die de module verzamelt?</summary><p>Van u. Wij verwerken de sessiegegevens namens u als verwerker, met een verwerkersovereenkomst. Data wordt binnen de EU opgeslagen en u kunt hem op elk moment exporteren of laten verwijderen.</p></details>
+      <details><summary>Wat doet dit met onze laadtijd?</summary><p>Het script is kleiner dan 40 kB, laadt asynchroon en blokkeert de paginaweergave niet. Het scoringswerk gebeurt op onze servers, niet in de browser van de bezoeker.</p></details>
+      <details><summary>Wij hebben al een zoekfilter. Waarom dit erbij?</summary><p>Een filter en TripPick bedienen verschillende bezoekers. Wie weet dat hij naar Kreta wil, gebruikt uw filter. TripPick is voor de groep daarvóór, die nog geen zoekopdracht kan formuleren.</p></details>
+      <details><summary>Hoe lang duurt de koppeling?</summary><p>Bij een bestaande, schone productfeed twee weken van kickoff tot live. Bij een feed die eerst opgeschoond moet worden vier tot zes weken.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap two" style="padding-bottom:0">
+    <div>
+      <span class="eyebrow mono">Contact</span>
+      <h2>Twintig minuten, met <span>uw eigen aanbod</span> erin</h2>
+      <p>Stuur ons vooraf uw productfeed en we laten in de demo uw eigen reizen zien in plaats van een voorbeeld.</p>
+      <div class="micro"><span>Geen verkooppraatje</span><span>·</span><span>Geen verplichting</span></div>
+    </div>
+    <div class="frm">
+      <input type="text" placeholder="Uw naam">
+      <input type="text" placeholder="Organisatie">
+      <input type="email" placeholder="Zakelijk e-mailadres">
+      <select><option>Aantal bestemmingen in uw aanbod</option><option>Minder dan 100</option><option>100 tot 500</option><option>500 tot 2.000</option><option>Meer dan 2.000</option></select>
+      <button class="btn btn-full">Plan een demo →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a href="index.html" class="flogo"><img src="TripPick_logo.svg" alt="TripPick.eu"></a>
+        <p>De zakelijke module van TripPick, aangedreven door Navago. Voor reisorganisaties, vakantieparken, campingketens en wintersportaanbieders.</p>
+      </div>
+      <div class="fcol"><span class="mono">Zakelijk</span><a href="#demo">Demo</a><a href="#werking">Hoe het werkt</a><a href="#prijzen">Prijzen</a></div>
+      <div class="fcol"><span class="mono">Consument</span><a href="index.html">TripPick.eu</a><a href="index.html#tool">Keuzehulp</a><a href="bestemmingen.html">Bestemmingen</a></div>
+      <div class="fcol"><span class="mono">Bedrijf</span><a href="contact.html#over">Over ons</a><a href="mailto:hallo@trippick.eu">Verwerkersovereenkomst</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></div>
+    </div>
+    <div class="fbot mono"><span>TripPick · onderdeel van OnlineKoers · KvK 75082888</span><span>trippick.eu/zakelijk</span></div>
+  </div>
+</footer>
+
+<script>
+const SK=[
+ {n:"Zonwaarts",b:"#1B4D7A",bl:"#EEF3F8",bt:"#12242F",bm:"#5E7183",bb:"#DCE4EC",r:"12px",u:"zonwaarts.nl/vakantie-kiezen"},
+ {n:"Terra Reizen",b:"#B0442C",bl:"#FAF0EC",bt:"#2E1A14",bm:"#836A61",bb:"#EADDD7",r:"4px",u:"terrareizen.nl/waarheen"},
+ {n:"Groene Route",b:"#2E6B4F",bl:"#EDF5F0",bt:"#12281E",bm:"#5F7A6C",bb:"#DAE7DF",r:"20px",u:"groeneroute.nl/reisadvies"}
+];
+const T=[
+ {n:"Kreta, Chersonissos",h:"Villa Elounda · 8 dagen",m:["lente","zomer","herfst"],g:["gezin","stel"],b:2,t:["zon","eten"],p:689,img:"https://picsum.photos/seed/kreta3/200/200"},
+ {n:"Puglia, Monopoli",h:"Masseria Salento · 8 dagen",m:["lente","herfst"],g:["stel","vrienden"],b:3,t:["eten","cultuur"],p:849,img:"https://picsum.photos/seed/puglia4/200/200"},
+ {n:"Algarve, Lagos",h:"Hotel Miramar · 8 dagen",m:["lente","zomer","herfst"],g:["gezin","stel"],b:2,t:["zon","rust"],p:639,img:"https://picsum.photos/seed/algarve3/200/200"},
+ {n:"Madeira, Funchal",h:"Quinta do Vale · 8 dagen",m:["winter","lente","herfst"],g:["stel","solo"],b:3,t:["natuur","rust"],p:879,img:"https://picsum.photos/seed/madeira0/200/200"},
+ {n:"Toscane, Val d'Orcia",h:"Agriturismo Poggio · 7 dagen",m:["lente","herfst"],g:["stel","gezin"],b:3,t:["eten","rust","cultuur"],p:939,img:"https://picsum.photos/seed/toscane9/200/200"},
+ {n:"Costa Brava, Begur",h:"Aparthotel Mar · 8 dagen",m:["zomer"],g:["gezin","vrienden"],b:2,t:["zon","natuur"],p:579,img:"https://picsum.photos/seed/costabrava/200/200"},
+ {n:"Lissabon",h:"Baixa Boutique · 4 dagen",m:["lente","herfst","winter"],g:["stel","solo"],b:1,t:["cultuur","eten"],p:389,img:"https://picsum.photos/seed/lissabon6/200/200"},
+ {n:"Kaapverdië, Sal",h:"Resort Ondas · 9 dagen",m:["winter"],g:["stel","vrienden"],b:3,t:["zon","rust"],p:989,img:"https://picsum.photos/seed/kaapverdie/200/200"}
+];
+const Q=[
+ {q:"Wanneer wilt u weg?",s:"",k:"maand",o:[{l:"Voorjaar",x:"mrt – mei",v:"lente"},{l:"Zomer",x:"jun – aug",v:"zomer"},{l:"Najaar",x:"sep – nov",v:"herfst"},{l:"Winter",x:"dec – feb",v:"winter"}]},
+ {q:"Met wie gaat u?",s:"",k:"gezelschap",o:[{l:"Met z'n tweeën",v:"stel"},{l:"Gezin",x:"kinderen onder 12",v:"gezin"},{l:"Alleen",v:"solo"},{l:"Met vrienden",v:"vrienden"}]},
+ {q:"Waar heeft u behoefte aan?",s:"Kies er één of twee.",k:"motief",multi:2,o:[{l:"Rust",v:"rust"},{l:"Cultuur",v:"cultuur"},{l:"Natuur",v:"natuur"},{l:"Zon en water",v:"zon"},{l:"Goed eten",v:"eten"}]}
+];
+const W=document.getElementById('w'),URLEl=document.getElementById('url'),badge=document.getElementById('playbadge'),toast=document.getElementById('toast');
+let s=0,i=0,A={},sel=[],autoplaying=false,autoTimers=[];
+function stopAutoplay(){autoplaying=false;autoTimers.forEach(clearTimeout);autoTimers=[];badge.classList.remove('show');toast.classList.remove('show');}
+function skin(k){const S=SK[k];s=k;
+  W.style.setProperty('--b',S.b);W.style.setProperty('--bl',S.bl);W.style.setProperty('--bt',S.bt);
+  W.style.setProperty('--bm',S.bm);W.style.setProperty('--bb',S.bb);W.style.setProperty('--br',S.r);
+  URLEl.textContent=S.u;draw();}
+document.querySelectorAll('.skin').forEach(b=>b.onclick=()=>{
+  stopAutoplay();
+  document.querySelectorAll('.skin').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  i=0;A={};sel=[];skin(+b.dataset.s);});
+function head(){return `<div class="wtop"><div class="wbrand"><i class="wmark"></i>${SK[s].n}</div>
+  <div class="wsegs">${Q.map((_,k)=>`<i class="${k<i?'on':''}"></i>`).join('')}</div></div>`}
+function draw(){
+  if(i>=Q.length)return res();
+  const q=Q[i];sel=[];
+  W.innerHTML=head()+`<div class="q">${q.q}</div>${q.s?`<div class="qs">${q.s}</div>`:'<div style="height:10px"></div>'}
+    <div class="os" id="os"></div>
+    <div class="wf"><button class="wb" id="b" ${i?'':'style="visibility:hidden"'}>← Terug</button>
+    ${q.multi?'<button class="wgo" id="n" disabled>Toon mijn reizen</button>':'<span style="font-size:11.5px;color:var(--bm)">Kies één antwoord</span>'}</div>`;
+  const os=document.getElementById('os');
+  q.o.forEach(o=>{const b=document.createElement('button');b.className='o';
+    b.innerHTML=`<span><strong>${o.l}</strong>${o.x?`<small>${o.x}</small>`:''}</span><span class="tk"></span>`;
+    b.onclick=()=>{
+      if(!window.__ap)stopAutoplay();
+      if(q.multi){const x=sel.indexOf(o.v);if(x>-1){sel.splice(x,1);b.classList.remove('on')}else if(sel.length<2){sel.push(o.v);b.classList.add('on')}
+        document.getElementById('n').disabled=!sel.length;}
+      else{os.querySelectorAll('.o').forEach(e=>e.classList.remove('on'));b.classList.add('on');A[q.k]=o.v;setTimeout(()=>{i++;draw()},280)}
+    };os.appendChild(b)});
+  document.getElementById('b').onclick=()=>{stopAutoplay();i--;draw()};
+  if(q.multi)document.getElementById('n').onclick=()=>{if(!window.__ap)stopAutoplay();A.motief=[...sel];i++;draw()};
+}
+function showToast(){
+  clearTimeout(window.__toastTimer);
+  toast.classList.add('show');
+  window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),4200);
+}
+function res(){
+  const sc=t=>{let n=0,w=[];
+    if(t.m.includes(A.maand)){n+=34;w.push('past in het seizoen')}
+    if(t.g.includes(A.gezelschap)){n+=26;w.push({stel:"voor z'n tweeën",gezin:'gezinsvriendelijk',solo:'goed alleen',vrienden:'leuk met vrienden'}[A.gezelschap])}
+    (A.motief||[]).forEach(m=>{if(t.t.includes(m)){n+=20;w.push({rust:'rustig',cultuur:'cultuur',natuur:'natuur',zon:'zon en water',eten:'goed eten'}[m])}});
+    return{n,w:w.slice(0,3)}};
+  const top=T.map(t=>({t,...sc(t)})).sort((a,b)=>b.n-a.n).slice(0,3);
+  const mx=Math.max(...top.map(x=>x.n))||1;
+  W.innerHTML=head()+`<div class="q" style="font-size:16.5px;margin-bottom:10px">Drie reizen uit ons aanbod</div>
+    ${top.map((x,k)=>`<div class="rc" style="animation-delay:${k*80}ms">
+      <div class="rphoto" style="background-image:url('${x.t.img}')"></div>
+      <div class="rbody"><h4>${x.t.n}</h4><div class="sub">${x.t.h}</div>
+      <div class="tg">${x.w.map(y=>`<span>${y}</span>`).join('')}<span>${Math.round(x.n/mx*100)}% match</span></div>
+      <div class="bt"><span class="pr">vanaf <b>€ ${x.t.p}</b> p.p.</span><a href="#">Bekijk deze reis →</a></div></div></div>`).join('')}
+    <div class="mt">Voorbeeldaanbod. In uw omgeving staan hier uw eigen reizen met actuele prijs, beschikbaarheid en foto.</div>
+    <div class="wf"><button class="wb" id="r">← Opnieuw</button></div>`;
+  document.getElementById('r').onclick=()=>{i=0;A={};draw()};
+  showToast();
+}
+function autoplayDemo(){
+  autoplaying=true;window.__ap=true;
+  skin(0);
+  const t=(fn,ms)=>autoTimers.push(setTimeout(fn,ms));
+  t(()=>badge.classList.add('show'),150);
+  const path=[
+    ()=>document.querySelectorAll('#os .o')[1],   // Zomer
+    ()=>document.querySelectorAll('#os .o')[0],   // Met z'n tweeën
+    ()=>document.querySelectorAll('#os .o')[3],   // Zon en water
+    ()=>document.querySelectorAll('#os .o')[0]    // + Rust
+  ];
+  let step=0;
+  function next(){
+    if(!autoplaying)return;
+    if(step<path.length){
+      const el=path[step]();
+      if(el)el.click();
+      step++;
+      if(step===4){t(()=>{const nx=document.getElementById('n');if(nx)nx.click();},550);}
+      else t(next,750);
+    }
+  }
+  t(next,900);
+  t(()=>{badge.classList.remove('show');},6600);
+  t(()=>{
+    autoplaying=false;window.__ap=false;
+    i=0;A={};toast.classList.remove('show');draw();
+    document.querySelectorAll('.skin').forEach(x=>x.classList.remove('on'));
+    document.querySelector('.skin[data-s="0"]').classList.add('on');
+  },11200);
+}
+autoplayDemo();
+</script>
+</body>
+</html>
