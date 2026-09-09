@@ -1,6 +1,0 @@
-{
-  "buildCommand": "pnpm build",
-  "outputDirectory": "apps/trippick-web/.next",
-  "installCommand": "pnpm install",
-  "framework": "nextjs"
-}
