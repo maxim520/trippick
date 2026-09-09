@@ -156,6 +156,7 @@ export function MatchWidget({ apiBase, brand, onDeeplinkClick }: MatchWidgetProp
       setStep('results');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Onbekende fout');
+      setStep('results');
     } finally {
       setLoading(false);
     }
