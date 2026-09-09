@@ -19,7 +19,7 @@ import { XMLParser } from 'fast-xml-parser';
 import { readFileSync } from 'node:fs';
 import { getDb } from './lib/db.js';
 import { toISO2, reportUnknownCountries } from './lib/country-codes.js';
-import { getPath, parsePriceCents, parseDate } from './lib/utils.js';
+import { getPath, parsePriceCents, parseDate, normalizeImageUrl } from './lib/utils.js';
 import { SOURCE_FIELD_MAPS, type StagingOffer, type ProductType, type TransportType } from './lib/types.js';
 
 const BATCH_SIZE = 500;
@@ -123,7 +123,7 @@ export async function parse(sourceId: string, batchIdOverride?: number): Promise
       null;
 
     const imageRaw = map.imagePath ? getPath(raw, map.imagePath) : null;
-    const imageUrl = imageRaw && String(imageRaw).startsWith('http') ? String(imageRaw) : null;
+    const imageUrl = normalizeImageUrl(imageRaw ? String(imageRaw) : null);
 
     rows.push({
       batch_id:               batch.id,

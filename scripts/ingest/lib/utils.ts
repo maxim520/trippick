@@ -61,3 +61,15 @@ export function saveFeedFile(sourceId: string, buf: Buffer): string {
 export function readFeedFile(filePath: string): Buffer {
   return readFileSync(filePath);
 }
+
+/**
+ * Normalise an image URL: ensure https, reject non-http strings.
+ * Handles the common case where affiliate feeds serve http:// URLs
+ * that are blocked by browsers on HTTPS pages.
+ */
+export function normalizeImageUrl(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const s = raw.trim();
+  if (!s.startsWith('http')) return null;
+  return s.startsWith('http://') ? 'https://' + s.slice(7) : s;
+}

@@ -3,17 +3,19 @@
  * or a single named stage. Stops on any error.
  *
  * Usage:
- *   tsx lib/runner.ts all               — fetch→parse→resolve→validate→publish for all sources
+ *   tsx lib/runner.ts all               — fetch→parse→resolve→check-images→validate→publish for all sources
  *   tsx lib/runner.ts fetch             — only fetch for all sources
+ *   tsx lib/runner.ts check-images      — only image check for all sources
  *   tsx lib/runner.ts all daisycon-solmar  — all stages for one source
  */
 import 'dotenv/config';
-import { fetch }    from '../01-fetch.js';
-import { parse }    from '../02-parse.js';
+import { fetch }       from '../01-fetch.js';
+import { parse }       from '../02-parse.js';
 import { parseTradeTrackerProperties } from '../parse-tradetracker-properties.js';
-import { resolve }  from '../03-resolve.js';
-import { validate } from '../04-validate.js';
-import { publish }  from '../05-publish.js';
+import { resolve }     from '../03-resolve.js';
+import { validate }    from '../04-validate.js';
+import { checkImages } from '../04b-check-images.js';
+import { publish }     from '../05-publish.js';
 
 const ALL_SOURCES = [
   'daisycon-prijsvrij',
@@ -27,7 +29,7 @@ const ALL_SOURCES = [
 // Flat-field sources use 02-parse.ts; <properties><property name> sources use
 // parse-tradetracker-properties.ts. Add new entries here when onboarding a feed
 // with a different format rather than modifying existing parsers.
-const PROPERTIES_FORMAT_SOURCES = new Set(['tradetracker-corendon']);
+const PROPERTIES_FORMAT_SOURCES = new Set(['tradetracker-corendon', 'tradetracker-bungalownet']);
 
 async function dispatchParse(sourceId: string, batchId?: number): Promise<void> {
   if (PROPERTIES_FORMAT_SOURCES.has(sourceId)) {
@@ -46,18 +48,20 @@ async function runAll(sourceId: string): Promise<void> {
   if (batchId === null) { console.log('No change, skipping remaining stages.'); return; }
   await dispatchParse(sourceId, batchId);
   await resolve(sourceId, batchId);
-  await publish(sourceId, batchId);  // publish calls validate internally
+  await checkImages(sourceId, batchId);  // HEAD-check; http→https al gedaan in parse
+  await publish(sourceId, batchId);       // publish calls validate internally
 }
 
 (async () => {
   for (const src of sources) {
     switch (stage) {
-      case 'fetch':    await fetch(src); break;
-      case 'parse':    await dispatchParse(src); break;
-      case 'resolve':  await resolve(src); break;
-      case 'validate': await validate(src); break;
-      case 'publish':  await publish(src); break;
-      case 'all':      await runAll(src); break;
+      case 'fetch':         await fetch(src); break;
+      case 'parse':         await dispatchParse(src); break;
+      case 'resolve':       await resolve(src); break;
+      case 'validate':      await validate(src); break;
+      case 'check-images': await checkImages(src); break;
+      case 'publish':       await publish(src); break;
+      case 'all':           await runAll(src); break;
       default:
         console.error(`Unknown stage: ${stage}. Use: fetch|parse|resolve|validate|publish|all`);
         process.exit(1);

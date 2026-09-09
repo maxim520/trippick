@@ -30,11 +30,11 @@ import { XMLParser } from 'fast-xml-parser';
 import { readFileSync } from 'node:fs';
 import { getDb } from './lib/db.js';
 import { toISO2, reportUnknownCountries } from './lib/country-codes.js';
-import { parsePriceCents } from './lib/utils.js';
+import { parsePriceCents, normalizeImageUrl } from './lib/utils.js';
 import type { ProductType, TransportType } from './lib/types.js';
 
 // Alleen bronnen die het <properties><property name="..."> formaat gebruiken
-const SUPPORTED_SOURCES = new Set(['tradetracker-corendon']);
+const SUPPORTED_SOURCES = new Set(['tradetracker-corendon', 'tradetracker-bungalownet']);
 
 const BATCH_SIZE = 500;
 
@@ -47,6 +47,9 @@ const xmlParser = new XMLParser({
   parseTagValue: true,
   trimValues: true,
   isArray: (name) => name === 'product' || name === 'property',
+  // Bungalow.net description fields contain 100k+ HTML entities (&lt;br/&gt; etc.).
+  // normalizeProcessEntities() does Math.max(1, value) so 0 → 1. Use Infinity to disable the cap.
+  processEntities: { enabled: true, maxTotalExpansions: Infinity, maxExpandedLength: Infinity } as unknown as boolean,
 });
 
 // ── Property-helpers ───────────────────────────────────────────────────────
@@ -156,8 +159,17 @@ export async function parseTradeTrackerProperties(sourceId: string, batchIdOverr
     const product = rec as Record<string, unknown>;
     const props = buildPropMap(product);
 
-    // ── Price ──────────────────────────────────────────────────────────
-    const priceCents = parsePriceCents(prop(props, 'price'));
+    // ── Price — top-level <price currency="EUR">589.00</price> ─────────
+    // fast-xml-parser wraps mixed content (attr + text) as { _currency, '#text' }
+    // Bungalow.net has price=0.00 at top-level; real price is in fromPrice property.
+    const priceNode = product['price'];
+    const priceVal = (priceNode !== null && typeof priceNode === 'object')
+      ? (priceNode as Record<string, unknown>)['#text']
+      : priceNode;
+    const topLevelCents = parsePriceCents(priceVal);
+    const priceCents = (topLevelCents !== null && topLevelCents > 0)
+      ? topLevelCents
+      : parsePriceCents(prop(props, 'fromPrice') ?? prop(props, 'price'));
 
     // ── Date ───────────────────────────────────────────────────────────
     let departureDate: string | null = null;
@@ -173,10 +185,11 @@ export async function parseTradeTrackerProperties(sourceId: string, batchIdOverr
     }
 
     // ── Coordinates ────────────────────────────────────────────────────
+    // Bungalow.net uses European comma decimal: "37,60899079" → "37.60899079"
     const latStr = prop(props, 'latitude');
     const lonStr = prop(props, 'longitude');
-    const lat = latStr ? parseFloat(latStr) : null;
-    const lon = lonStr ? parseFloat(lonStr) : null;
+    const lat = latStr ? parseFloat(latStr.replace(',', '.')) : null;
+    const lon = lonStr ? parseFloat(lonStr.replace(',', '.')) : null;
 
     // ── Product type ───────────────────────────────────────────────────
     // Corendon always has departure_date; coordinates present as bonus
@@ -186,8 +199,12 @@ export async function parseTradeTrackerProperties(sourceId: string, batchIdOverr
       null;
 
     // ── Country ────────────────────────────────────────────────────────
+    // Bungalow.net already provides ISO-2 (e.g. "IT", "NL"); Corendon uses Dutch names.
+    // If the value looks like an ISO-2 code (2 uppercase ASCII letters), use it directly.
     const countryRaw = prop(props, 'country') ?? '';
-    const countryISO = await toISO2(countryRaw);
+    const countryISO = /^[A-Z]{2}$/.test(countryRaw)
+      ? countryRaw
+      : await toISO2(countryRaw);
 
     // ── Transport ──────────────────────────────────────────────────────
     // flightIncluded=true → 'Flight', false or missing → null
@@ -195,12 +212,24 @@ export async function parseTradeTrackerProperties(sourceId: string, batchIdOverr
     const transportType: TransportType =
       flightIncluded === 'true' ? 'Flight' : null;
 
-    // ── Image ──────────────────────────────────────────────────────────
-    const imageRaw = prop(props, 'image') ?? prop(props, 'imageUrl');
-    const imageUrl = imageRaw?.startsWith('http') ? imageRaw : null;
+    // ── Image — top-level <images><image>url</image></images> ──────────
+    // Fallback to productimage_1 in properties if images block is absent.
+    const imagesNode = product['images'] as Record<string, unknown> | null;
+    let imageUrl: string | null = null;
+    if (imagesNode?.['image']) {
+      const imgArr = Array.isArray(imagesNode['image']) ? imagesNode['image'] : [imagesNode['image']];
+      const first = imgArr[0];
+      imageUrl = normalizeImageUrl(typeof first === 'string' ? first : null);
+    }
+    if (!imageUrl) {
+      imageUrl = normalizeImageUrl(prop(props, 'productimage_1'));
+    }
 
-    // ── Deeplink ───────────────────────────────────────────────────────
-    const deeplink = prop(props, 'deeplink') ?? prop(props, 'url') ?? '';
+    // ── Deeplink — top-level <URL> ─────────────────────────────────────
+    const deeplinkTop = product['URL'];
+    const deeplink = (typeof deeplinkTop === 'string' && deeplinkTop.startsWith('http'))
+      ? deeplinkTop
+      : (prop(props, 'deeplink') ?? prop(props, 'url') ?? '');
 
     // ── Store raw props as flat object for raw jsonb ───────────────────
     const rawRecord: Record<string, unknown> = { _ID: product['_ID'] };
@@ -216,7 +245,7 @@ export async function parseTradeTrackerProperties(sourceId: string, batchIdOverr
       price_cents:            priceCents,
       departure_date:         departureDate,
       transport_type:         transportType,
-      accommodation_name:     prop(props, 'name'),
+      accommodation_name:     (product['name'] as string | null) ?? prop(props, 'name'),
       lat:                    lat !== null && !isNaN(lat) ? lat : null,
       lon:                    lon !== null && !isNaN(lon) ? lon : null,
       image_url:              imageUrl,
