@@ -2,7 +2,7 @@
  * Server-side wrapper around the match_offers SQL function.
  * Called from the /api/match route handler.
  */
-import { createServerClient } from './supabase.js';
+import { createServerClient } from './supabase';
 import type { MatchResult } from 'navago-widget';
 
 interface MatchParams {

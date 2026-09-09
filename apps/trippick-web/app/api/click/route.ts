@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '../../../lib/supabase.js';
+import { createServerClient } from '../../../lib/supabase';
 
 interface ClickBody {
   offerId:   number;

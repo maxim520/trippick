@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { queryMatch } from '../../../lib/match-query.js';
+import { queryMatch } from '../../../lib/match-query';
 import type { UserProfile } from 'navago-widget';
 
 const TRANSPORT_MODES = new Set(['flight', 'car', 'train', 'bus']);
@@ -37,11 +37,14 @@ function parseBody(body: unknown): UserProfile {
   if (b['motives'].some(m => !MOTIVES.has(m)))
     throw new Error('motives contains invalid value');
 
+  // Widget uses singular 'couple'; DB audiences use plural 'couples'
+  const audiences = (b['audiences'] as string[]).map(a => a === 'couple' ? 'couples' : a);
+
   return {
     month,
     budgetCents,
     transport: b['transport'] as UserProfile['transport'],
-    audiences: b['audiences'] as UserProfile['audiences'],
+    audiences: audiences as UserProfile['audiences'],
     motives:   b['motives']   as UserProfile['motives'],
   };
 }

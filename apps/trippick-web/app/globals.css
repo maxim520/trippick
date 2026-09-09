@@ -15,3 +15,412 @@ body {
   color: #1a1a1a;
   min-height: 100dvh;
 }
+
+/* ============================================================
+   navago-widget styles — TripPick brand
+   ============================================================ */
+
+.nw-widget {
+  --nw-primary: #17BEBB;
+  --nw-primary-dark: #13a8a5;
+  --nw-radius: 12px;
+  --nw-shadow: 0 2px 12px rgba(0,0,0,.08);
+  width: 100%;
+}
+
+/* Progress bar */
+.nw-progress {
+  height: 4px;
+  background: #e8e8e6;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.nw-progress-bar {
+  height: 100%;
+  background: var(--nw-primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Step container */
+.nw-step {
+  animation: nw-fade-in 0.2s ease;
+}
+@keyframes nw-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nw-step-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+}
+.nw-step-sub {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: -0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Chip grids */
+.nw-grid {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+.nw-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.nw-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (max-width: 480px) {
+  .nw-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Chips / option buttons */
+.nw-chip {
+  padding: 0.75rem 0.5rem;
+  border: 2px solid #e0e0de;
+  border-radius: var(--nw-radius);
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  line-height: 1.3;
+}
+.nw-chip:hover {
+  border-color: var(--nw-primary);
+}
+.nw-chip--active {
+  border-color: var(--nw-primary);
+  background: var(--nw-primary);
+  color: #fff;
+}
+.nw-chip--active:hover {
+  background: var(--nw-primary-dark);
+  border-color: var(--nw-primary-dark);
+}
+
+/* Action buttons row */
+.nw-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.nw-back {
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.nw-back:hover { color: #333; }
+
+.nw-next {
+  margin-left: auto;
+  padding: 0.75rem 1.75rem;
+  background: var(--nw-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--nw-radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.nw-next:hover:not(:disabled) { background: var(--nw-primary-dark); }
+.nw-next:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Results */
+.nw-results-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #1a1a1a;
+}
+.nw-results-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) {
+  .nw-results-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* Result card */
+.nw-result-card {
+  background: #fff;
+  border-radius: var(--nw-radius);
+  overflow: hidden;
+  box-shadow: var(--nw-shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.nw-result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+}
+
+.nw-result-image-wrap {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 */
+  background: #e8e8e6;
+  overflow: hidden;
+}
+.nw-result-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nw-result-image-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+.nw-result-image-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e8e8e6 0%, #d8d8d6 100%);
+}
+
+.nw-result-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+.nw-result-country {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--nw-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.nw-result-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.25;
+}
+.nw-result-blurb {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 0.15rem;
+}
+.nw-result-friction {
+  font-size: 0.8rem;
+  color: #c05600;
+  background: #fff4ec;
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  margin-top: 0.25rem;
+}
+.nw-result-friction-label {
+  font-weight: 700;
+}
+
+.nw-result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+.nw-result-meta > * {
+  font-size: 0.78rem;
+  background: #f0f0ee;
+  color: #555;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.nw-result-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f0f0ee;
+}
+.nw-result-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.nw-result-cta {
+  padding: 0.5rem 1rem;
+  background: var(--nw-primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.nw-result-cta:hover { background: var(--nw-primary-dark); }
+
+/* Restart button */
+.nw-restart {
+  display: block;
+  margin: 1.5rem auto 0;
+  background: none;
+  border: 1px solid #ccc;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #555;
+  transition: border-color 0.15s;
+}
+.nw-restart:hover { border-color: #999; }
+
+/* Error + no-results states */
+.nw-error,
+.nw-no-results {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.nw-error p,
+.nw-no-results p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1.25rem;
+}
+
+/* ============================================================
+   /bestemmingen catalog page
+   ============================================================ */
+
+.tp-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.tp-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tp-logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #17BEBB;
+  text-decoration: none;
+}
+.tp-logo:hover { opacity: 0.85; }
+
+.tp-back-link {
+  font-size: 0.9rem;
+  color: #555;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tp-back-link:hover { color: #17BEBB; }
+
+.tp-catalog-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.tp-catalog-title h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.tp-catalog-count {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.tp-error-msg {
+  margin-top: 3rem;
+  text-align: center;
+  color: #777;
+}
+
+/* Destination card grid */
+.tp-dest-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+@media (max-width: 480px) {
+  .tp-dest-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.tp-dest-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.tp-dest-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.11);
+}
+
+.tp-dest-card-stripe {
+  height: 6px;
+}
+
+.tp-dest-card-body {
+  padding: 0.7rem 0.75rem 0.8rem;
+}
+
+.tp-dest-country {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-dest-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.25;
+  margin-bottom: 0.25rem;
+}
+
+.tp-dest-months {
+  font-size: 0.72rem;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
