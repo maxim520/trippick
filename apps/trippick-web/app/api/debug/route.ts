@@ -12,6 +12,23 @@ export async function GET() {
     NEXT_PUBLIC_API_BASE:  process.env['NEXT_PUBLIC_API_BASE'] ?? '(leeg)',
   };
 
+  // Raw fetch test — bypass supabase client entirely
+  try {
+    const url = process.env['SUPABASE_URL']!;
+    const key  = process.env['SUPABASE_SERVICE_KEY']!;
+    const r = await fetch(`${url}/rest/v1/offers?select=id&limit=1`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    });
+    checks['raw_fetch_status'] = r.status;
+    checks['raw_fetch_ok']     = r.ok;
+  } catch (e) {
+    const err = e as NodeJS.ErrnoException & { cause?: unknown };
+    checks['raw_fetch_ok']    = false;
+    checks['raw_fetch_error'] = err.message;
+    checks['raw_fetch_cause'] = String((err.cause as Error)?.message ?? err.cause ?? '');
+    checks['raw_fetch_code']  = err.code ?? '';
+  }
+
   try {
     const db = createServerClient();
     const { count, error } = await db
@@ -20,21 +37,10 @@ export async function GET() {
     checks['supabase_ok']    = !error;
     checks['offers_count']   = error ? error.message : count;
   } catch (e) {
+    const err = e as NodeJS.ErrnoException & { cause?: unknown };
     checks['supabase_ok']    = false;
-    checks['supabase_error'] = (e as Error).message;
-  }
-
-  try {
-    const db = createServerClient();
-    const { data, error } = await db.rpc('match_offers', {
-      p_month: 8, p_budget_cents: 200000,
-      p_transport: ['flight'], p_audiences: ['couples'], p_motives: ['beach'],
-    });
-    checks['rpc_ok']    = !error;
-    checks['rpc_rows']  = error ? error.message : (data as unknown[])?.length ?? 0;
-  } catch (e) {
-    checks['rpc_ok']    = false;
-    checks['rpc_error'] = (e as Error).message;
+    checks['supabase_error'] = err.message;
+    checks['supabase_cause'] = String((err.cause as Error)?.message ?? err.cause ?? '');
   }
 
   return NextResponse.json(checks);
