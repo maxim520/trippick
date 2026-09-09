@@ -4,8 +4,10 @@ import { createServerClient } from '../../../lib/supabase';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  const rawUrl = process.env['SUPABASE_URL'] ?? '';
   const checks: Record<string, unknown> = {
-    SUPABASE_URL:          !!process.env['SUPABASE_URL'],
+    SUPABASE_URL_set:      !!rawUrl,
+    SUPABASE_URL_preview:  rawUrl ? rawUrl.slice(0, 30) + '…' : '(niet gezet)',
     SUPABASE_SERVICE_KEY:  !!process.env['SUPABASE_SERVICE_KEY'],
     NEXT_PUBLIC_API_BASE:  process.env['NEXT_PUBLIC_API_BASE'] ?? '(leeg)',
   };
