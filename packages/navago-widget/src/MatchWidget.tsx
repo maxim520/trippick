@@ -63,15 +63,16 @@ function ResultCard({
   result: MatchResult;
   onDeeplinkClick?: ((r: MatchResult) => void) | undefined;
 }) {
-  const imgSrc = result.imageUrl;
-  const isFallback = result.imageIsFallback;
+  const [imgFailed, setImgFailed] = useState(false);
+  const imgSrc = imgFailed ? null : result.imageUrl;
+  const isFallback = result.imageIsFallback || imgFailed;
 
   return (
     <div className="nw-result-card" data-destination-id={result.destinationId}>
       <div className="nw-result-image-wrap">
         {imgSrc ? (
           <>
-            <img src={imgSrc} alt={result.destinationName} className="nw-result-image" loading="lazy" />
+            <img src={imgSrc} alt={result.destinationName} className="nw-result-image" loading="lazy" onError={() => setImgFailed(true)} />
             {isFallback && (
               <span className="nw-result-image-badge">Sfeerbeeld</span>
             )}
